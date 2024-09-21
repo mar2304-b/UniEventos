@@ -1,4 +1,4 @@
-package com.example.unieventos2.ui.screens
+package com.example.unieventos2.ui.screens.admin
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
