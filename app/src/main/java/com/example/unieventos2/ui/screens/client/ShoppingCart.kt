@@ -1,3 +1,5 @@
+package com.example.unieventos2.ui.screens.client
+
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState

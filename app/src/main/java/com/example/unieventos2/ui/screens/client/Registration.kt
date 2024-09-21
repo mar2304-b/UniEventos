@@ -1,4 +1,4 @@
-package com.example.unieventos2.ui.screens
+package com.example.unieventos2.ui.screens.client
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
