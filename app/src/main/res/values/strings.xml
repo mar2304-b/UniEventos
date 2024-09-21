@@ -15,5 +15,12 @@
     <string name="emailToast">Correo o Contraseña incorrectos</string>string>
     <string name="loginButton">Iniciar Sesión</string>string>
     <string name="registerButton">Registrarme</string>string>
+    <string name="manageEvents">Gestionar eventos</string>string>
+    <string name="couponCreation">Crear cupón</string>string>
+    <string name="manageacount">GestionarCuenta</string>string>
+    <string name="checkPQRS">PQRS</string>string>
+    <string name="notifications">Notificaciones</string>string>
+    <string name="shoppingCart">Mi carrito de compras</string>string>
+    <string name="purchaseHistory">Mi historial de compras</string>string>
     <string name="forgetMyPasswordButton">Olvide mi contraseña</string>string>
 </resources>

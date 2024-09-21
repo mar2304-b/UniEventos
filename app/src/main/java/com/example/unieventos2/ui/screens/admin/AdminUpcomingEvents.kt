@@ -18,7 +18,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.unieventos2.ui.components.UpcomingEvents
 @Composable
-fun AdminUpcomingEvents() {
+fun AdminUpcomingEvents(
+    onNavigateToCreateEvent: ()-> Unit,
+    onNavigateToDeleteEvent: ()-> Unit,
+    onNavigateToEditEvent: ()-> Unit,
+) {
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -39,10 +43,10 @@ fun AdminUpcomingEvents() {
                 verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier.fillMaxWidth()
             ) {
-                Button(onClick = { /*TODO*/ }) {
+                Button(onClick = {onNavigateToCreateEvent()}) {
                     Text(text = "Crear evento")
                 }
-                Button(onClick = { /*TODO*/ }) {
+                Button(onClick = {onNavigateToEditEvent()}) {
                     Text(text = "Editar Evento")
                 }
             }
@@ -53,7 +57,7 @@ fun AdminUpcomingEvents() {
                     .padding(horizontal = 16.dp)
             ) {
                 Button(
-                    onClick = { /*TODO*/ },
+                    onClick = {onNavigateToDeleteEvent()},
                     modifier = Modifier
                         .align(Alignment.Center)
                 ) {

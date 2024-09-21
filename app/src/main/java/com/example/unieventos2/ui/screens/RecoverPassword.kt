@@ -34,7 +34,9 @@ import com.example.unieventos2.ui.components.PersonalInformation
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun RecoverPassword() {
+fun RecoverPassword(
+    onNavigateToRecoverPassword: ()-> Unit,
+) {
     Scaffold { paddingValues ->
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
@@ -85,7 +87,7 @@ fun RecoverPassword() {
             )
 
             Spacer(modifier = Modifier.height(30.dp))
-            Button(onClick = { /*TODO*/ }) {
+            Button(onClick = {onNavigateToRecoverPassword}) {
                 Text(text = "Recuperar contraseña")
             }
         }

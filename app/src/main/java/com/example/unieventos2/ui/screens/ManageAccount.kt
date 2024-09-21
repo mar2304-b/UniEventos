@@ -19,7 +19,10 @@ import androidx.compose.ui.unit.sp
 import com.example.unieventos2.ui.components.PersonalInformation
 
 @Composable
-fun ManageAccount() {
+fun ManageAccount(
+    onNavigateToDelete: ()-> Unit,
+    onNavigateToEdit: ()-> Unit,
+) {
     val scrollState = rememberScrollState()
 
     Scaffold { paddingValues ->
@@ -44,7 +47,7 @@ fun ManageAccount() {
 
 
             Button(
-                onClick = { /*TODO*/ },
+                onClick = {onNavigateToEdit()},
                 modifier = Modifier.align(Alignment.CenterHorizontally)
             ) {
                 Text(text = "Editar")
@@ -53,7 +56,7 @@ fun ManageAccount() {
             Spacer(modifier = Modifier.height(10.dp))
 
             Button(
-                onClick = { /*TODO*/ },
+                onClick = {onNavigateToDelete()},
                 modifier = Modifier.align(Alignment.CenterHorizontally)
             ) {
                 Text(text = "Eliminar")

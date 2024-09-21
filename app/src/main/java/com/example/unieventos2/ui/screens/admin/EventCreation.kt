@@ -34,7 +34,10 @@ import java.util.Date
 import java.util.Locale
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun EventCreation() {
+fun EventCreation(
+    onNavigateToConfirm: ()-> Unit,
+    onNavigateToCreation: ()-> Unit,
+) {
     val scrollState = rememberScrollState()
     val context = LocalContext.current
 
@@ -102,7 +105,7 @@ fun EventCreation() {
                 )
             }
 
-            Localities() // Suponiendo que tienes esta función definida
+            Localities()
 
             Row {
                 Spacer(modifier = Modifier.height(30.dp))
@@ -135,6 +138,7 @@ fun EventCreation() {
                 Button(
                     enabled = events.isNotEmpty() && cities.isNotEmpty() && date.isNotEmpty(),
                     onClick = {
+                        onNavigateToCreation()
                         if (events.isNotEmpty() && cities.isNotEmpty() && date.isNotEmpty()) {
                             Toast.makeText(context, "Evento publicado con éxito", Toast.LENGTH_SHORT).show()
                         } else {
@@ -152,6 +156,7 @@ fun EventCreation() {
                     confirmButton = {
                         TextButton(
                             onClick = {
+                                onNavigateToConfirm()
                                 val selectedDate = datePickerState.selectedDateMillis
                                 if (selectedDate != null) {
                                     val eventDate = Date(selectedDate)

@@ -27,4 +27,7 @@ sealed class RouteScreen {
     @Serializable
     data object AdminNotifications: RouteScreen()
 
+    @Serializable
+    data object AdminUpcomingEvents: RouteScreen()
+
 }

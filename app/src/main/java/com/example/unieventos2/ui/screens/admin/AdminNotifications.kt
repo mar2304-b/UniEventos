@@ -29,7 +29,9 @@ import com.example.unieventos2.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AdminNotifications() {
+fun AdminNotifications(
+    onNavigateToCreateNotifications: ()-> Unit,
+) {
     Scaffold { paddingValues ->
 
         val textState = remember { mutableStateOf("¡Muy pendientes a nuestra app! Próximamente obra de teatro del lago de los cisnes, solo 300 boletas disponibles") }
@@ -72,7 +74,7 @@ fun AdminNotifications() {
                 )
             )
             Spacer(modifier = Modifier.height(30.dp))
-            Button(onClick = { /* TODO */ }
+            Button(onClick = {onNavigateToCreateNotifications()}
             ) {
                 Text(text = "Publicar notificación")
             }

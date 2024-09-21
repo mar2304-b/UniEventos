@@ -1,5 +1,6 @@
 package com.example.unieventos2.ui.screens.admin
 
+import android.app.Notification
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -22,7 +23,13 @@ import androidx.compose.ui.unit.dp
 import com.example.unieventos2.R
 
 @Composable
-fun AdminOptions() {
+fun AdminOptions(
+    onNavigateToManageEvents: ()-> Unit,
+    onNavigateToCouponCreation: ()-> Unit,
+    onNavigateToManageAccount: ()-> Unit,
+    onNavigateToPQRS: ()-> Unit,
+    onNavigateToNotifications: ()-> Unit
+) {
     Column(
         modifier = Modifier
             .fillMaxSize(),
@@ -39,35 +46,35 @@ fun AdminOptions() {
 
         Spacer(modifier = Modifier.height(10.dp))
         Button(
-            onClick = { /*TODO*/ },
+            onClick = {onNavigateToManageEvents()},
             colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFFA07A))
         ) {
             Text(text = stringResource(id = R.string.manageEvents))
         }
         Spacer(modifier = Modifier.height(10.dp))
         Button(
-            onClick = { /*TODO*/ },
+            onClick = {onNavigateToCouponCreation()},
             colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFADD8E6))
         ) {
             Text(text = stringResource(id = R.string.couponCreation))
         }
         Spacer(modifier = Modifier.height(10.dp))
         Button(
-            onClick = { /*TODO*/ },
+            onClick = {onNavigateToManageAccount()},
             colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFFA07A))
         ) {
             Text(text = stringResource(id = R.string.manageacount))
         }
         Spacer(modifier = Modifier.height(10.dp))
         Button(
-            onClick = { /*TODO*/ },
+            onClick = {onNavigateToPQRS()},
             colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFADD8E6))
         ) {
             Text(text = stringResource(id = R.string.checkPQRS))
         }
         Spacer(modifier = Modifier.height(10.dp))
         Button(
-            onClick = { /*TODO*/ },
+            onClick = {onNavigateToNotifications()},
             colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFFA07A))
         ) {
             Text(text = stringResource(id = R.string.notifications))

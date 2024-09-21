@@ -13,18 +13,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.unieventos2.ui.navigation.Navigation
-import com.example.unieventos2.ui.screens.AdminNotifications
-import com.example.unieventos2.ui.screens.AdminPQRS
-import com.example.unieventos2.ui.screens.AdminUpcomingEvents
+
 import com.example.unieventos2.ui.screens.ClientNotifications
 import com.example.unieventos2.ui.screens.ClientOptions
 import com.example.unieventos2.ui.screens.ClientPQRS
 import com.example.unieventos2.ui.screens.ClientUpcomingEvents
-import com.example.unieventos2.ui.screens.CouponCreation
-import com.example.unieventos2.ui.screens.EventCreation
+
 import com.example.unieventos2.ui.screens.HomeScreen
 import com.example.unieventos2.ui.screens.ManageAccount
-import com.example.unieventos2.ui.screens.AdminOptions
+
 import com.example.unieventos2.ui.screens.PurchaseHistory
 import com.example.unieventos2.ui.screens.PurchaseOrder
 import com.example.unieventos2.ui.screens.RecoverPassword

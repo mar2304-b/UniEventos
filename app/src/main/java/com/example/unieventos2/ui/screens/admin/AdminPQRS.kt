@@ -29,7 +29,9 @@ import com.example.unieventos2.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AdminPQRS() {
+fun AdminPQRS(
+    onNavigateToCreatePQRS: ()-> Unit,
+) {
     Scaffold { paddingValues ->
 
         val textState1 = remember { mutableStateOf("Gracias") }
@@ -88,7 +90,7 @@ fun AdminPQRS() {
             )
 
             Spacer(modifier = Modifier.height(30.dp))
-            Button(onClick = { /*TODO*/ }) {
+            Button(onClick = {onNavigateToCreatePQRS()}) {
                 Text(text = "Publicar respuestas")
             }
         }
