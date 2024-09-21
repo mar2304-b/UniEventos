@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">Unieventos2</string>
+    <string name="welcome">¡Bienvenido a Unieventos!</string>
+    <string name="description">¡La app que te permite encontrar y
+                            comprar boletas de manera fácil y
+                            rápida.Disfruta de los mejores
+                            eventos en tu ciudad en simples pasos.</string>
+    <string name="imageDescription">Logo</string>string>
+    <string name="emailValidation">El correo no es válido</string>string>
+    <string name="labelEmail">Correo eléctronico</string>string>
+    <string name="passwordValidation">La contraseña debe tener al menos 7 caracteres</string>string>
+    <string name="labelPassword">Contraseña</string>string>
+    <string name="code">Si eres usuario nuevo ingresa tu código aquí:</string>string>
+    <string name="emailText">Bienvenido</string>string>
+    <string name="emailToast">Correo o Contraseña incorrectos</string>string>
+    <string name="loginButton">Iniciar Sesión</string>string>
+    <string name="registerButton">Registrarme</string>string>
+    <string name="forgetMyPasswordButton">Olvide mi contraseña</string>string>
+</resources>
