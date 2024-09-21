@@ -65,7 +65,7 @@ fun AdminNotifications() {
                 singleLine = false,
                 modifier = Modifier
                     .width(300.dp)
-                    .background(Color.Transparent), // Fondo transparente
+                    .background(Color.Transparent),
                 textStyle = TextStyle(
                     color = Color.Black,
                     textAlign = TextAlign.Center

@@ -17,6 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.example.unieventos2.R
 
@@ -25,8 +26,8 @@ fun ClientOptions() {
     Column(
         modifier = Modifier
             .fillMaxSize(),
-        verticalArrangement = Arrangement.Center, // Centra verticalmente los elementos dentro de la columna
-        horizontalAlignment = Alignment.CenterHorizontally // Centra horizontalmente los elementos dentro de la columna
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Image(
             painter = painterResource(id = R.drawable.logo),
@@ -41,35 +42,35 @@ fun ClientOptions() {
             onClick = { /*TODO*/ },
             colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFFA07A))
         ) {
-            Text(text = "Mi carrito de compras")
+            Text(text = stringResource(id = R.string.shoppingCart))
         }
         Spacer(modifier = Modifier.height(10.dp))
         Button(
             onClick = { /*TODO*/ },
             colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFADD8E6))
         ) {
-            Text(text = "Mi historial de compras")
+            Text(text = stringResource(id = R.string.purchaseHistory))
         }
         Spacer(modifier = Modifier.height(10.dp))
         Button(
             onClick = { /*TODO*/ },
             colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFFA07A))
         ) {
-            Text(text = "Gestionar mi cuenta")
+            Text(text = stringResource(id = R.string.manageacount))
         }
         Spacer(modifier = Modifier.height(10.dp))
         Button(
             onClick = { /*TODO*/ },
             colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFADD8E6))
         ) {
-            Text(text = "PQRS")
+            Text(text = stringResource(id = R.string.checkPQRS))
         }
         Spacer(modifier = Modifier.height(10.dp))
         Button(
             onClick = { /*TODO*/ },
             colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFFA07A))
         ) {
-            Text(text = "Mis notificaciones")
+            Text(text = stringResource(id = R.string.notifications))
         }
     }
 }

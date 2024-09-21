@@ -42,7 +42,7 @@ fun ClientPQRS() {
                 .padding(paddingValues)
                 .fillMaxWidth()
         ) {
-            Spacer(modifier = Modifier.height(20.dp)) // Ajusté el espaciado
+            Spacer(modifier = Modifier.height(20.dp))
             Text(
                 text = "PQRS",
                 color = Color.Black,
@@ -51,7 +51,7 @@ fun ClientPQRS() {
                 modifier = Modifier.fillMaxWidth()
             )
 
-            Spacer(modifier = Modifier.height(20.dp)) // Ajusté el espaciado
+            Spacer(modifier = Modifier.height(20.dp))
             Image(
                 painter = painterResource(id = R.drawable.pqrs),
                 contentDescription = "PQRS",

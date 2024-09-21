@@ -38,7 +38,7 @@ fun CouponCreation() {
                 .padding(paddingValues)
                 .fillMaxWidth()
         ) {
-            Spacer(modifier = Modifier.height(20.dp)) // Ajusté el espaciado
+            Spacer(modifier = Modifier.height(20.dp))
             Text(
                 text = "Creación del cupón",
                 color = Color.Black,
@@ -47,7 +47,7 @@ fun CouponCreation() {
                 modifier = Modifier.fillMaxWidth()
             )
 
-            Spacer(modifier = Modifier.height(20.dp)) // Ajusté el espaciado
+            Spacer(modifier = Modifier.height(20.dp))
             Image(
                 painter = painterResource(id = R.drawable.cupones),
                 contentDescription = "Logo",

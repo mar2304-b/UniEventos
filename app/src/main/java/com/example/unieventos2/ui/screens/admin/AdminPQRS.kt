@@ -66,7 +66,7 @@ fun AdminPQRS() {
                 onValueChange = { textState1.value = it },
                 modifier = Modifier
                     .width(300.dp)
-                    .background(Color.Transparent), // Fondo transparente
+                    .background(Color.Transparent),
                 textStyle = TextStyle(
                     color = Color.Black,
                     textAlign = TextAlign.Center
@@ -80,7 +80,7 @@ fun AdminPQRS() {
                 onValueChange = { textState2.value = it },
                 modifier = Modifier
                     .width(300.dp)
-                    .background(Color.Transparent), // Fondo transparente
+                    .background(Color.Transparent),
                 textStyle = TextStyle(
                     color = Color.Black,
                     textAlign = TextAlign.Center

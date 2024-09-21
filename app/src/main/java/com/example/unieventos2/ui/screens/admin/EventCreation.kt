@@ -67,7 +67,7 @@ fun EventCreation() {
                 fontWeight = FontWeight.Bold
             )
 
-            Event() // Suponiendo que tienes esta función definida
+            Event()
 
             Spacer(modifier = Modifier.height(10.dp))
             Row(

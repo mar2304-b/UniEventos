@@ -49,7 +49,7 @@ fun AdminUpcomingEvents() {
             Spacer(modifier = Modifier.height(16.dp))
             Box(
                 modifier = Modifier
-                    .fillMaxWidth()  // Ocupa todo el ancho disponible
+                    .fillMaxWidth()
                     .padding(horizontal = 16.dp)
             ) {
                 Button(

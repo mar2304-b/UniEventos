@@ -42,7 +42,7 @@ fun ManageAccount() {
 
             Spacer(modifier = Modifier.height(10.dp))
 
-            // Centrar los botones verticalmente en la columna
+
             Button(
                 onClick = { /*TODO*/ },
                 modifier = Modifier.align(Alignment.CenterHorizontally)
