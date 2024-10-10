@@ -1,5 +1,6 @@
 package com.example.unieventos2.ui.screens.admin
 
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -20,7 +21,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
@@ -31,7 +34,10 @@ import com.example.unieventos2.R
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CouponCreation(
-    onNavigateToCreate: ()-> Unit) {
+    onNavigateToCreate: () -> Unit
+) {
+    val context = LocalContext.current
+
     Scaffold { paddingValues ->
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
@@ -41,7 +47,7 @@ fun CouponCreation(
         ) {
             Spacer(modifier = Modifier.height(20.dp))
             Text(
-                text = "Creación del cupón",
+                text = stringResource(id = R.string.couponCreation),
                 color = Color.Black,
                 fontSize = 30.sp,
                 textAlign = TextAlign.Center,
@@ -51,16 +57,16 @@ fun CouponCreation(
             Spacer(modifier = Modifier.height(20.dp))
             Image(
                 painter = painterResource(id = R.drawable.cupones),
-                contentDescription = "Logo",
+                contentDescription = stringResource(id = R.string.imageDescription),
                 modifier = Modifier
                     .size(150.dp)
                     .clip(CircleShape)
             )
 
             Spacer(modifier = Modifier.height(30.dp))
-            Text(text = "Nombre del cupón:")
+            Text(text = stringResource(id = R.string.couponName))
             TextField(
-                value = "Registro por primera vez",
+                value = stringResource(id = R.string.couponDescription),
                 singleLine = true,
                 onValueChange = {},
                 modifier = Modifier.width(300.dp),
@@ -71,9 +77,9 @@ fun CouponCreation(
             )
 
             Spacer(modifier = Modifier.height(30.dp))
-            Text(text = "Código del cupón:")
+            Text(text = stringResource(id = R.string.couponCode))
             TextField(
-                value = "123",
+                value = stringResource(id = R.string.couponNumber),
                 singleLine = true,
                 onValueChange = {},
                 modifier = Modifier.width(190.dp),
@@ -83,9 +89,9 @@ fun CouponCreation(
             )
 
             Spacer(modifier = Modifier.height(30.dp))
-            Text(text = "Descripción del cupón:")
+            Text(text = stringResource(id = R.string.couponDescription))
             TextField(
-                value = "Registrate en Unieventos y obten el 15% de descuento",
+                value = stringResource(id = R.string.couponDescription2),
                 onValueChange = {},
                 modifier = Modifier.width(190.dp),
                 textStyle = TextStyle(
@@ -94,9 +100,9 @@ fun CouponCreation(
             )
 
             Spacer(modifier = Modifier.height(30.dp))
-            Text(text = "Porcentaje de descuento:")
+            Text(text = stringResource(id = R.string.discount))
             TextField(
-                value = "15%",
+                value = stringResource(id = R.string.discountNumber),
                 singleLine = true,
                 onValueChange = {},
                 modifier = Modifier.width(190.dp),
@@ -106,8 +112,14 @@ fun CouponCreation(
             )
 
             Spacer(modifier = Modifier.height(30.dp))
-            Button(onClick = {onNavigateToCreate()}) {
-                Text(text = "Publicar")
+            Button(
+                onClick = {
+
+                    Toast.makeText(context, "Cupón publicado exitosamente", Toast.LENGTH_LONG).show() // Mostrar el Toast
+                    onNavigateToCreate()
+                }
+            ) {
+                Text(text = stringResource(id = R.string.post))
             }
         }
     }

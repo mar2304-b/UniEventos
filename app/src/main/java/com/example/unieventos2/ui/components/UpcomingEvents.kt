@@ -1,6 +1,8 @@
 package com.example.unieventos2.ui.components
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.*
@@ -19,10 +21,16 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import com.example.unieventos2.R
+import com.example.unieventos2.models.Event
 
 @Composable
-fun UpcomingEvents() {
+fun UpcomingEvents(
+    onNavigateToEventDetail: (Int) -> Unit,
+    getEventList: () -> List<Event>
+) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -31,7 +39,7 @@ fun UpcomingEvents() {
     ) {
         Spacer(modifier = Modifier.width(30.dp))
         Text(
-            text = "¡Bienvenido a Unieventos!",
+            text = stringResource(id = R.string.welcome),
             color = Color.Black,
             fontSize = 25.sp,
             textAlign = TextAlign.Center,
@@ -42,12 +50,12 @@ fun UpcomingEvents() {
         TextField(
             value = searchQuery1,
             onValueChange = { searchQuery1 = it },
-            placeholder = { Text(text = "Buscar evento por nombre") },
+            placeholder = { Text(text = stringResource(id = R.string.searchEventByName)) },
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(top = 20.dp),
             leadingIcon = {
-                Icon(Icons.Default.Search, contentDescription = "Buscar")
+                Icon(Icons.Default.Search, contentDescription = stringResource(id = R.string.search))
             }
         )
 
@@ -55,12 +63,12 @@ fun UpcomingEvents() {
         TextField(
             value = searchQuery2,
             onValueChange = { searchQuery2 = it },
-            placeholder = { Text(text = "Buscar evento por tipo") },
+            placeholder = { Text(text = stringResource(id = R.string.searchEventByType)) },
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(top = 20.dp),
             leadingIcon = {
-                Icon(Icons.Default.Search, contentDescription = "Buscar")
+                Icon(Icons.Default.Search, contentDescription = stringResource(id = R.string.search))
             }
         )
 
@@ -68,18 +76,18 @@ fun UpcomingEvents() {
         TextField(
             value = searchQuery3,
             onValueChange = { searchQuery3 = it },
-            placeholder = { Text(text = "Buscar evento por ciudad") },
+            placeholder = { Text(text = stringResource(id = R.string.searchEventByCity)) },
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(top = 20.dp),
             leadingIcon = {
-                Icon(Icons.Default.Search, contentDescription = "Buscar")
+                Icon(Icons.Default.Search, contentDescription = stringResource(id = R.string.search))
             }
         )
 
         Spacer(modifier = Modifier.width(50.dp))
         Text(
-            text = "Próximos eventos",
+            text = stringResource(id = R.string.upcomingEvents),
             color = Color.Black,
             fontSize = 15.sp,
             fontWeight = FontWeight.Bold,
@@ -87,35 +95,13 @@ fun UpcomingEvents() {
             modifier = Modifier.fillMaxWidth()
         )
 
-        Card(
-            shape = RoundedCornerShape(8.dp),
-            colors = CardDefaults.cardColors(containerColor = Color.LightGray),
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(8.dp)
-        ) {
-            Row(modifier = Modifier.padding(8.dp)) {
-                Image(
-                    painter = painterResource(id = com.example.unieventos2.R.drawable.poster), // Reemplaza con tu recurso de imagen
-                    contentDescription = null,
-                    modifier = Modifier
-                        .size(55.dp)
-                        .align(Alignment.CenterVertically)
+        LazyColumn {
+            items(getEventList()){
+                EventCard(
+                    event = it,
+                    onClick = {onNavigateToEventDetail(it.id)}
                 )
-                Spacer(modifier = Modifier.width(8.dp))
-                Column(
-                    modifier = Modifier
-                        .align(Alignment.CenterVertically)
-                        .fillMaxWidth(),
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    Text(text = "Guns N' Roses", fontSize = 18.sp, color = Color.Black)
-                    Text(text = "La banda estadounidense de rock Guns N’Roses estará en Armenia(Q).."
-                        , fontSize = 14.sp, color = Color.DarkGray)
-                }
-
             }
         }
-
     }
 }

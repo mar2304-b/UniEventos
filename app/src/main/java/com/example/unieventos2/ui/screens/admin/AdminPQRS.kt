@@ -21,6 +21,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -47,7 +48,7 @@ fun AdminPQRS(
 
             Spacer(modifier = Modifier.width(70.dp))
             Text(
-                text = "PQRS",
+                text = stringResource(id = R.string.PQRS),
                 color = Color.Black,
                 fontSize = 30.sp,
                 textAlign = TextAlign.Center,
@@ -57,12 +58,12 @@ fun AdminPQRS(
             Spacer(modifier = Modifier.width(90.dp))
             Image(
                 painter = painterResource(id = R.drawable.pqrs),
-                contentDescription = "PQRS",
+                contentDescription = stringResource(id = R.string.PQRS),
                 modifier = Modifier.size(150.dp)
             )
 
             Spacer(modifier = Modifier.height(30.dp))
-            Text(text = "Manejan muy buenos precios")
+            Text(text = stringResource(id = R.string.prices))
             BasicTextField(
                 value = textState1.value,
                 onValueChange = { textState1.value = it },
@@ -76,7 +77,7 @@ fun AdminPQRS(
             )
 
             Spacer(modifier = Modifier.height(30.dp))
-            Text(text = "¿Cuando habrá concierto de Coldplay en Bogotá?:")
+            Text(text = stringResource(id = R.string.question))
             BasicTextField(
                 value = textState2.value,
                 onValueChange = { textState2.value = it },
@@ -91,7 +92,7 @@ fun AdminPQRS(
 
             Spacer(modifier = Modifier.height(30.dp))
             Button(onClick = {onNavigateToCreatePQRS()}) {
-                Text(text = "Publicar respuestas")
+                Text(text = stringResource(id = R.string.postAnswers))
             }
         }
     }

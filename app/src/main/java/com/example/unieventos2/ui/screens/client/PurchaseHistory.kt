@@ -1,6 +1,7 @@
 package com.example.unieventos2.ui.screens.client
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -14,19 +15,29 @@ import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.unieventos2.R
+import com.example.unieventos2.viewModel.UsersViewModel
+import dev.chrisbanes.haze.HazeState
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun PurchaseHistory() {
+fun PurchaseHistory(
+    usersViewModel: UsersViewModel,
+    userId: Int,
+    paddingValues: PaddingValues,
+    hazeState: HazeState
+) {
     Scaffold { paddingValues ->
         Column(
             modifier = Modifier.padding(paddingValues)
         ) {
             Spacer(modifier = Modifier.height(20.dp))
             Text(
-                text = "Historial de compras",
+                text = stringResource(id = R.string.purchaseHistory),
                 color = Color.Black,
                 fontSize = 30.sp,
                 textAlign = TextAlign.Center,
@@ -35,10 +46,10 @@ fun PurchaseHistory() {
 
             Spacer(modifier = Modifier.height(50.dp))
             Row {
-                Text(text = "Código de la orden:")
+                Text(text = stringResource(id = R.string.orderCode))
                 Spacer(modifier = Modifier.width(20.dp))
                 TextField(
-                    value = "333",
+                    value = stringResource(id = R.string.orderNumber1),
                     singleLine = true,
                     onValueChange = {},
                     modifier = Modifier.width(190.dp)
@@ -47,10 +58,10 @@ fun PurchaseHistory() {
 
             Spacer(modifier = Modifier.height(10.dp))
             Row {
-                Text(text = "Total: ")
+                Text(text = stringResource(id = R.string.total))
                 Spacer(modifier = Modifier.width(20.dp))
                 TextField(
-                    value = "1200000000",
+                    value = stringResource(id = R.string.priceDescription),
                     singleLine = true,
                     onValueChange = {},
                 )
@@ -58,10 +69,10 @@ fun PurchaseHistory() {
 
             Spacer(modifier = Modifier.height(50.dp))
             Row {
-                Text(text = "Código de la orden:")
+                Text(text = stringResource(id = R.string.orderCode))
                 Spacer(modifier = Modifier.width(20.dp))
                 TextField(
-                    value = "222",
+                    value = stringResource(id = R.string.orderNumber2),
                     singleLine = true,
                     onValueChange = {},
                     modifier = Modifier.width(190.dp)
@@ -70,10 +81,10 @@ fun PurchaseHistory() {
 
             Spacer(modifier = Modifier.height(10.dp))
             Row {
-                Text(text = "Total: ")
+                Text(text = stringResource(id = R.string.total))
                 Spacer(modifier = Modifier.width(20.dp))
                 TextField(
-                    value = "1200000000",
+                    value = stringResource(id = R.string.priceDescription),
                     singleLine = true,
                     onValueChange = {},
                 )
@@ -81,10 +92,10 @@ fun PurchaseHistory() {
 
             Spacer(modifier = Modifier.height(50.dp))
             Row {
-                Text(text = "Código de la orden:")
+                Text(text = stringResource(id = R.string.orderCode))
                 Spacer(modifier = Modifier.width(20.dp))
                 TextField(
-                    value = "333",
+                    value = stringResource(id = R.string.orderNumber3),
                     singleLine = true,
                     onValueChange = {},
                     modifier = Modifier.width(190.dp)
@@ -93,14 +104,15 @@ fun PurchaseHistory() {
 
             Spacer(modifier = Modifier.height(10.dp))
             Row {
-                Text(text = "Total: ")
+                Text(text = stringResource(id = R.string.total))
                 Spacer(modifier = Modifier.width(20.dp))
                 TextField(
-                    value = "1200000000",
+                    value = stringResource(id = R.string.priceDescription),
                     singleLine = true,
                     onValueChange = {},
                 )
             }
+
         }
     }
 }

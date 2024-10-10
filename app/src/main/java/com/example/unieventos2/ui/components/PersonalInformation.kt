@@ -33,6 +33,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.style.TextAlign
@@ -41,7 +42,18 @@ import androidx.compose.ui.unit.sp
 import com.example.unieventos2.R
 
 @Composable
-fun PersonalInformation() {
+fun PersonalInformation(
+    email:String,
+    onEmailChange: (String) ->Unit,
+    name:String,
+    onNameChange: (String) ->Unit,
+    address:String,
+    onAddressChange: (String) ->Unit,
+    telephone:String,
+    onTelephoneChange: (String) ->Unit,
+    password:String,
+    onPasswordChange: (String) ->Unit,
+) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Top,
@@ -51,7 +63,7 @@ fun PersonalInformation() {
     ) {
         Image(
             imageVector = Icons.Rounded.AccountCircle,
-            contentDescription = "Icono de cuenta",
+            contentDescription = stringResource(id = R.string.iconAccount),
             modifier = Modifier
                 .size(150.dp)
                 .clip(CircleShape)
@@ -62,47 +74,47 @@ fun PersonalInformation() {
             verticalArrangement = Arrangement.Center,
             modifier = Modifier.fillMaxWidth()
         ) {
-            Text(text = "Correo electronico:")
+            Text(text = stringResource(id = R.string.labelEmail))
             OutlinedTextField(
-                value = "" ,
+                value = email ,
                 singleLine = true,
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
-                onValueChange = {}
+                onValueChange = onEmailChange
             )
 
             Spacer(modifier = Modifier.height(10.dp))
-            Text(text = "Nombre completo:")
+            Text(text = stringResource(id = R.string.name))
             OutlinedTextField(
-                value = "" ,
+                value = name ,
                 singleLine = true,
-                onValueChange = {}
+                onValueChange = onNameChange
             )
 
             Spacer(modifier = Modifier.height(10.dp))
-            Text(text = "Dirección:")
+            Text(text = stringResource(id = R.string.address))
             OutlinedTextField(
-                value = "",
+                value = address,
                 singleLine = true,
-                onValueChange = {}
+                onValueChange = onAddressChange
             )
 
             Spacer(modifier = Modifier.height(10.dp))
-            Text(text = "Teléfono:")
+            Text(text = stringResource(id = R.string.telephone))
             OutlinedTextField(
-                value = "",
+                value = telephone,
                 singleLine = true,
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Phone),
-                onValueChange = {}
+                onValueChange = onTelephoneChange
             )
 
             Spacer(modifier = Modifier.height(10.dp))
-            Text(text = "Contraseña:")
+            Text(text = stringResource(id = R.string.labelPassword))
             OutlinedTextField(
-                value = "",
+                value = password,
                 singleLine = true,
                 visualTransformation = PasswordVisualTransformation(),
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
-                onValueChange = {}
+                onValueChange = onPasswordChange
             )
         }
     }

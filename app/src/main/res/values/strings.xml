@@ -7,9 +7,9 @@
                             eventos en tu ciudad en simples pasos.</string>
     <string name="imageDescription">Logo</string>string>
     <string name="emailValidation">El correo no es válido</string>string>
-    <string name="labelEmail">Correo eléctronico</string>string>
+    <string name="labelEmail">Correo eléctronico:</string>string>
     <string name="passwordValidation">La contraseña debe tener al menos 7 caracteres</string>string>
-    <string name="labelPassword">Contraseña</string>string>
+    <string name="labelPassword">Contraseña:</string>string>
     <string name="code">Si eres usuario nuevo ingresa tu código aquí:</string>string>
     <string name="emailText">Bienvenido</string>string>
     <string name="emailToast">Correo o Contraseña incorrectos</string>string>
@@ -17,10 +17,106 @@
     <string name="registerButton">Registrarme</string>string>
     <string name="manageEvents">Gestionar eventos</string>string>
     <string name="couponCreation">Crear cupón</string>string>
-    <string name="manageacount">GestionarCuenta</string>string>
+    <string name="manageAccount">Gestionar Cuenta</string>string>
     <string name="checkPQRS">PQRS</string>string>
     <string name="notifications">Notificaciones</string>string>
-    <string name="shoppingCart">Mi carrito de compras</string>string>
-    <string name="purchaseHistory">Mi historial de compras</string>string>
+    <string name="shoppingCart">Carrito de compras</string>string>
+    <string name="purchaseHistory">Historial de compras</string>string>
     <string name="forgetMyPasswordButton">Olvide mi contraseña</string>string>
+    <string name="postNotification">Publicar notificación</string>string>
+    <string name="PQRS">PQRS</string>string>
+    <string name="prices">Manejan muy buenos precios</string>string>
+    <string name="question">¿Cuando habrá concierto de Coldplay en Bogotá?</string>string>
+    <string name="postAnswers">Publicar respuestas</string>string>
+    <string name="createEvent">Crear evento</string>string>
+    <string name="editEvent">Editar evento</string>string>
+    <string name="deleteEvent">Eliminar evento</string>string>
+    <string name="couponName">Nombre del cupon</string>string>
+    <string name="couponDescription">Registro por primera vez</string>string>
+    <string name="couponCode">Código del cupón</string>string>
+    <string name="couponNumber">123</string>string>
+    <string name="couponDescription2">Registrate en Unieventos y obten el 15% de descuento</string>string>
+    <string name="discount">Porcentaje de descuento:</string>string>
+    <string name="discountNumber">15%</string>string>
+    <string name="post">Publicar</string>string>
+    <string name="titleEvent">"Guns N' Roses"</string>string>
+    <string name="dateSelector">Seleccione una fecha</string>string>
+    <string name="dateIcon">Icono de calendario</string>string>
+    <string name="price">Precio</string>string>
+    <string name="priceDescription">1200000</string>string>
+    <string name="capacity">Capacidad permitida</string>string>
+    <string name="capacityDescription">20 personas</string>string>
+    <string name="confirm">Confirmar</string>string>
+    <string name="edit">Editar</string>string>
+    <string name="delete">Eliminar</string>string>
+    <string name="recoverPassword">Recuperar contraseña</string>string>
+    <string name="accountIcon">Icono de cuenta</string>string>
+    <string name="emailMessage">Ingrese su correo eléctronico:</string>string>
+    <string name="codeMessage">Ingrese el código que llego a su correo eléctronico:</string>string>
+    <string name="upcomingEvent">"¡Muy pendientes a nuestra app! Proximamente obra "
+                        "de teatro del lago de los cisnes, solo 300 boletas "
+                        "disponibles!"</string>string>
+    <string name="answer">Gracias</string>string>
+    <string name="orderCode">Código de la orden:</string>string>
+    <string name="orderNumber1">333</string>string>
+    <string name="total">Total: </string>string>
+    <string name="orderNumber2">222</string>string>
+    <string name="orderNumber3">111</string>string>
+    <string name="purchaseOrder">Orden de compra</string>string>
+    <string name="clientCode">Código del cliente: </string>string>
+    <string name="eventCode">Código del evento: </string>string>
+    <string name="eventNumber">444</string>string>
+    <string name="locality">Localidad: </string>string>
+    <string name="numberLocality">1</string>string>
+    <string name="units">Unidades: </string>string>
+    <string name="individualPrice">Unidades: </string>string>
+    <string name="coupon">Cupones </string>string>
+    <string name="date">Fecha: </string>string>
+    <string name="dateDescription">20/12/2024</string>string>
+    <string name="meansOfPayment">Medios de pago: </string>string>
+    <string name="meansOfPayment1">Transferencia</string>string>
+    <string name="meansOfPayment2">Puntos Falabella</string>string>
+    <string name="generatePayment">Generar pago</string>string>
+    <string name="record">Registro</string>string>
+    <string name="ID">Cédula:</string>string>
+    <string name="register">Registrarme</string>string>
+    <string name="typeEvent">Concierto</string>string>
+    <string name="city">Ciudad</string>string>
+    <string name="messsageShoppingCart">Ir al carrito de compras</string>string>
+    <string name="eventGeneralInformation">Información general del evento seleccionado</string>string>
+    <string name="selectedLocality">Localidad seleccionada: </string>string>
+    <string name="VIP">Gramilla VIP</string>string>
+    <string name="address">Dirección: </string>string>
+    <string name="addressDescription">Armenia(Q) Cra 4 # 23 N 12</string>string>
+    <string name="tickets">Cantidad de boletas: </string>string>
+    <string name="amountTickets">1</string>string>
+    <string name="couponMessage">Ingrese el cupón: </string>string>
+    <string name="confirmEdition">Confirmar ediciones</string>string>
+    <string name="chooseOption">Seleccione una opción</string>string>
+    <string name="eventMessage">"La banda estadounidense de rock Guns N’Roses " +
+                    "estará en Armenia(Q) el 12 de Diciembre del 2024. " +
+                    "El concierto será en el Coliseo del café," +
+                    "No olvides comprar tu boleta, contamos con diferentes " +
+                    "localidades."</string>
+    <string name="iconAccount">Icono de cuenta</string>string>
+    <string name="name">Nombre completo:</string>string>
+    <string name="telephone">Teléfono:</string>string>
+    <string name="search">Buscar</string>string>
+    <string name="upcomingEvents">Próximos eventos</string>string>
+    <string name="searchEventByName">Buscar evento por nombre</string>string>
+    <string name="searchEventByType">Buscar evento por tipo</string>string>
+    <string name="searchEventByCity">Buscar evento por ciudad</string>string>
+    <string name="codeRecoverPassword">1A3</string>string>
+    <string name="cancel">Cancelar</string>string>
+    <string name="goToPurchaseOrder">Ir a la orden de compra</string>string>
+    <string name="eventOption">Eventos</string>
+    <string name="couponOption">Cupones</string>
+    <string name="descriptionForm">Descripción:</string>
+    <string name="editAccount">Editar perfil</string>
+    <string name="notificationOption">Notificaciones</string>
+    <string name="verificationCode">Igrese el código que llegó a su correo</string>
+    <string name="email">Ingrese su correo eléctronico</string>
+
+
+
 </resources>

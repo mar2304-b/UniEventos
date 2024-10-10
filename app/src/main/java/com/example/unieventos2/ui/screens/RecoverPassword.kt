@@ -1,5 +1,6 @@
 package com.example.unieventos2.ui.screens
 
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -21,22 +22,32 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.unieventos2.R
 import com.example.unieventos2.ui.components.PersonalInformation
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun RecoverPassword(
-    onNavigateToRecoverPassword: ()-> Unit,
-) {
+fun RecoverPassword() {
+    var email by rememberSaveable { mutableStateOf("") }
+    var verificationCode by rememberSaveable { mutableStateOf("") }
+
+    val context = LocalContext.current
+
     Scaffold { paddingValues ->
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
@@ -45,7 +56,7 @@ fun RecoverPassword(
                 .fillMaxWidth()
         ) {
             Text(
-                text = "Recuperar contraseña",
+                text = stringResource(id = R.string.recoverPassword),
                 color = Color.Black,
                 fontSize = 30.sp,
                 textAlign = TextAlign.Center,
@@ -55,40 +66,34 @@ fun RecoverPassword(
             Spacer(modifier = Modifier.width(50.dp))
             Image(
                 imageVector = Icons.Rounded.AccountCircle,
-                contentDescription = "Icono de cuenta",
+                contentDescription = stringResource(id = R.string.accountIcon),
                 modifier = Modifier
                     .size(150.dp)
                     .clip(CircleShape)
             )
 
             Spacer(modifier = Modifier.height(30.dp))
-            Text(text = "Ingrese su correo electrónico:")
-            TextField(
-                value = "mariana@gmail.com",
-                singleLine = true,
-                onValueChange = {},
-                modifier = Modifier.width(300.dp),
-                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
-                textStyle = TextStyle(
-                    textAlign = TextAlign.Center
-                )
+            OutlinedTextField(
+                value = email,
+                onValueChange = { email = it },
+                label = { Text(text = stringResource(id = R.string.email)) }
+            )
+
+            Spacer(modifier = Modifier.height(10.dp))
+            OutlinedTextField(
+                value = verificationCode,
+                onValueChange = { verificationCode = it },
+                label = { Text(text = stringResource(id = R.string.verificationCode)) }
             )
 
             Spacer(modifier = Modifier.height(30.dp))
-            Text(text = "Ingrese el código que llegó a su correo:")
-            TextField(
-                value = "1A3",
-                singleLine = true,
-                onValueChange = {},
-                modifier = Modifier.width(190.dp),
-                textStyle = TextStyle(
-                    textAlign = TextAlign.Center
-                )
-            )
+            Button(
+                onClick = {
 
-            Spacer(modifier = Modifier.height(30.dp))
-            Button(onClick = {onNavigateToRecoverPassword}) {
-                Text(text = "Recuperar contraseña")
+                    Toast.makeText(context, "Recuperación exitosa, revise el código que llegó a su correo", Toast.LENGTH_LONG).show()
+                }
+            ) {
+                Text(text = stringResource(id = R.string.recoverPassword))
             }
         }
     }

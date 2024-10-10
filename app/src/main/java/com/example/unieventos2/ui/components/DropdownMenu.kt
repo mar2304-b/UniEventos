@@ -13,6 +13,8 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.pointer.HistoricalChange
+import androidx.compose.ui.res.stringResource
+import com.example.unieventos2.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -34,7 +36,7 @@ fun DropdownMenu(
             onValueChange = {},
             readOnly = true,
             placeholder = {
-                Text(text = "Seleccione una opción")
+                Text(text = stringResource(id = R.string.chooseOption))
             },
             trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded) }
         )

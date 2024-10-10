@@ -23,157 +23,95 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.example.unieventos2.ui.components.Event
+import com.example.unieventos2.R
+import com.example.unieventos2.models.Event
+import com.example.unieventos2.ui.components.EventForm
 import com.example.unieventos2.ui.components.Localities
+import com.example.unieventos2.viewModel.EventsViewModel
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun EventCreation(
-    onNavigateToConfirm: ()-> Unit,
-    onNavigateToCreation: ()-> Unit,
+    onNavigateToConfirm: () -> Unit,
+    eventsViewModel: EventsViewModel,
+    onNavigateToCreation: () -> Unit
 ) {
     val scrollState = rememberScrollState()
     val context = LocalContext.current
 
-    var typeEvent by rememberSaveable { mutableStateOf("") }
-    val events = listOf("Deporte", "Concierto", "Festival", "Teatro")
-    val cities = listOf("Armenia", "Pereira", "Bogotá", "Medellín", "Cali")
+    var name by rememberSaveable { mutableStateOf("") }
     var city by rememberSaveable { mutableStateOf("") }
+    var expandedCity by rememberSaveable { mutableStateOf(false) }
+    var address by rememberSaveable { mutableStateOf("") }
+    var description by rememberSaveable { mutableStateOf("") }
+    var type by rememberSaveable { mutableStateOf("") }
+    var expandedType by rememberSaveable { mutableStateOf(false) }
     var date by rememberSaveable { mutableStateOf("") }
-    var showDatePicker by rememberSaveable { mutableStateOf(false) }
-    var datePickerState = rememberDatePickerState()
+    var datePicked by rememberSaveable { mutableStateOf(false) }
 
-    Scaffold { paddingValues ->
+    Scaffold { padding ->
+
         Column(
             modifier = Modifier
-                .padding(paddingValues)
-                .verticalScroll(scrollState)
+                .padding(padding)
+                .fillMaxSize()
+                .padding(horizontal = 10.dp)
         ) {
             Spacer(modifier = Modifier.height(10.dp))
-            Row {
-                com.example.unieventos2.ui.components.DropdownMenu(
-                    value = typeEvent,
-                    onValueChange = { typeEvent = it },
-                    items = events
-                )
-            }
-            Spacer(modifier = Modifier.height(10.dp))
-            Text(
-                text = "Guns N' Roses",
-                modifier = Modifier.align(Alignment.CenterHorizontally),
-                fontWeight = FontWeight.Bold
+            EventForm(
+                name = name,
+                onNameChange = { name = it },
+                type = type,
+                onTypeChange = { type = it },
+                expandedType = expandedType,
+                expandedTypeChange = { expandedType = it },
+                description = description,
+                onDescriptionChange = { description = it },
+                city = city,
+                onCityChange = { city = it },
+                expandedCity = expandedCity,
+                expandedCityChange = { expandedCity = it },
+                date = date,
+                onDateChange = { date = it },
+                datePicked = datePicked,
+                onDatePickedChange = { datePicked = it },
+                address = address,
+                onAddressChange = { address = it }
             )
 
-            Event()
+            Spacer(modifier = Modifier.height(20.dp))
 
-            Spacer(modifier = Modifier.height(10.dp))
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.Center
-            ) {
-                com.example.unieventos2.ui.components.DropdownMenu(
-                    value = city,
-                    onValueChange = { city = it },
-                    items = cities
-                )
-            }
-
-            Spacer(modifier = Modifier.height(10.dp))
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.Center
-            ) {
-                OutlinedTextField(
-                    value = date,
-                    onValueChange = {},
-                    readOnly = true,
-                    placeholder = { Text(text = "Seleccione una fecha") },
-                    trailingIcon = {
-                        IconButton(onClick = { showDatePicker = true }) {
-                            Icon(
-                                imageVector = Icons.Rounded.DateRange,
-                                contentDescription = "Icono de calendario"
-                            )
-                        }
-                    }
-                )
-            }
-
-            Localities()
-
-            Row {
-                Spacer(modifier = Modifier.height(30.dp))
-                Text(text = "Precio:")
-                TextField(
-                    value = "1200000",
-                    singleLine = true,
-                    onValueChange = {},
-                    modifier = Modifier.width(300.dp),
-                    textStyle = TextStyle(textAlign = TextAlign.Center)
-                )
-            }
-            Row {
-                Spacer(modifier = Modifier.height(30.dp))
-                Text(text = "Capacidad permitida:")
-                TextField(
-                    value = "20 personas",
-                    singleLine = true,
-                    onValueChange = {},
-                    modifier = Modifier.width(300.dp),
-                    textStyle = TextStyle(textAlign = TextAlign.Center)
-                )
-            }
-
-            Spacer(modifier = Modifier.height(10.dp))
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.Center
+            Box(
+                modifier = Modifier.fillMaxWidth()
             ) {
                 Button(
-                    enabled = events.isNotEmpty() && cities.isNotEmpty() && date.isNotEmpty(),
                     onClick = {
-                        onNavigateToCreation()
-                        if (events.isNotEmpty() && cities.isNotEmpty() && date.isNotEmpty()) {
-                            Toast.makeText(context, "Evento publicado con éxito", Toast.LENGTH_SHORT).show()
-                        } else {
-                            Toast.makeText(context, "Debe llenar todos los campos", Toast.LENGTH_SHORT).show()
-                        }
-                    }
+                        val event = Event(0, name, city, address, description, date)
+                        eventsViewModel.createEvent(event)
+
+
+                        Toast.makeText(context, "Evento publicado exitosamente", Toast.LENGTH_LONG).show()
+                        name = ""
+                        city = ""
+                        address = ""
+                        description = ""
+                        date = ""
+                        datePicked = false
+                    },
+                    modifier = Modifier.align(Alignment.Center)
                 ) {
-                    Text(text = "Publicar")
+                    Text(text = stringResource(id = R.string.post))
                 }
             }
 
-            if (showDatePicker) {
-                DatePickerDialog(
-                    onDismissRequest = { showDatePicker = false },
-                    confirmButton = {
-                        TextButton(
-                            onClick = {
-                                onNavigateToConfirm()
-                                val selectedDate = datePickerState.selectedDateMillis
-                                if (selectedDate != null) {
-                                    val eventDate = Date(selectedDate)
-                                    val formattedDate = SimpleDateFormat("MMM dd, yyyy", Locale.getDefault()).format(eventDate)
-                                    date = formattedDate
-                                }
-                                showDatePicker = false
-                            }
-                        ) {
-                            Text(text = "Confirmar")
-                        }
-                    }
-                ) {
-                    DatePicker(state = datePickerState)
-                }
-            }
         }
     }
 }
-

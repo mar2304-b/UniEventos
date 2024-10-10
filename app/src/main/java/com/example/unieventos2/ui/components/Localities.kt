@@ -24,6 +24,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
@@ -44,14 +45,14 @@ fun Localities() {
             .padding(16.dp)
     ) {
         Text(
-            text = "Localidades:",
+            text = stringResource(id = R.string.locality),
             fontWeight = FontWeight.Bold
         )
 
         Spacer(modifier = Modifier.height(10.dp))
         Image(
             painter = painterResource(id = R.drawable.localidades),
-            contentDescription = "Logo",
+            contentDescription = stringResource(id = R.string.imageDescription),
             modifier = Modifier.size(300.dp)
         )
 
@@ -59,9 +60,9 @@ fun Localities() {
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier.fillMaxWidth()
         ) {
-            Spacer(modifier = Modifier.width(10.dp)) // Separador horizontal
+            Spacer(modifier = Modifier.width(10.dp))
 
-            Text(text = "Localidad:")
+            Text(text = stringResource(id = R.string.locality))
 
             BasicTextField(
                 value = textState.value,
@@ -70,7 +71,7 @@ fun Localities() {
                 modifier = Modifier
                     .width(300.dp)
                     .height(56.dp)
-                    .background(Color.Transparent), // Fondo transparente
+                    .background(Color.Transparent),
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
                 textStyle = TextStyle(
                     color = Color.Black,

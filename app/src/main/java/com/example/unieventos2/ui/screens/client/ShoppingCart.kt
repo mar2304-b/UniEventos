@@ -10,14 +10,25 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.unieventos2.R
+import com.example.unieventos2.viewModel.UsersViewModel
+import dev.chrisbanes.haze.HazeState
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ShoppingCart() {
+fun ShoppingCart(
+    //onNavigateToConfirmEditions: ()-> Unit,
+    //onNavigateToGoToPurchaseOrder: ()-> Unit,
+    userId: Int,
+    usersViewModel: UsersViewModel,
+    paddingValues: PaddingValues,
+    hazeState: HazeState
+) {
     val scrollState = rememberScrollState()
 
     Column(
@@ -28,7 +39,7 @@ fun ShoppingCart() {
     ) {
         Spacer(modifier = Modifier.height(20.dp))
         Text(
-            text = "Carrito de compra",
+            text = stringResource(id = R.string.shoppingCart),
             color = Color.Black,
             fontSize = 30.sp,
             textAlign = TextAlign.Center,
@@ -40,22 +51,22 @@ fun ShoppingCart() {
             horizontalAlignment = Alignment.Start
         ) {
             Row {
-                Text(text = "Código de la orden: ")
-                Text(text = "333")
+                Text(text = stringResource(id = R.string.orderCode))
+                Text(text = stringResource(id = R.string.orderNumber1))
             }
 
             Spacer(modifier = Modifier.height(20.dp))
             Text(
-                text = "Información general del evento seleccionado",
+                text = stringResource(id = R.string.eventGeneralInformation),
                 fontWeight = FontWeight.Bold
             )
 
             Spacer(modifier = Modifier.height(20.dp))
             Row {
-                Text(text = "Localidad seleccionada: ")
+                Text(text = stringResource(id = R.string.selectedLocality))
                 Spacer(modifier = Modifier.width(20.dp))
                 TextField(
-                    value = "Gramilla VIP",
+                    value = stringResource(id = R.string.VIP),
                     singleLine = true,
                     onValueChange = {},
                     modifier = Modifier.width(190.dp)
@@ -63,20 +74,20 @@ fun ShoppingCart() {
             }
             Spacer(modifier = Modifier.height(20.dp))
             Row {
-                Text(text = "Fecha del evento: ")
-                Text(text = "20/12/2024")
+                Text(text = stringResource(id = R.string.date))
+                Text(text = stringResource(id = R.string.dateDescription))
             }
             Spacer(modifier = Modifier.height(20.dp))
             Row {
-                Text(text = "Dirección: ")
-                Text(text = "Armenia(Q) Cra 4 # 23 N 12")
+                Text(text = stringResource(id = R.string.address))
+                Text(text = stringResource(id = R.string.addressDescription))
             }
             Spacer(modifier = Modifier.height(20.dp))
             Row {
-                Text(text = "Cantidad de boletas:")
+                Text(text = stringResource(id = R.string.tickets))
                 Spacer(modifier = Modifier.width(20.dp))
                 TextField(
-                    value = "1",
+                    value = stringResource(id = R.string.amountTickets),
                     singleLine = true,
                     onValueChange = {},
                     modifier = Modifier.width(190.dp)
@@ -93,7 +104,7 @@ fun ShoppingCart() {
         ) {
             Image(
                 painter = painterResource(id = com.example.unieventos2.R.drawable.localidades),
-                contentDescription = "Concierto",
+                contentDescription = stringResource(id = R.string.titleEvent),
                 modifier = Modifier.size(600.dp)
             )
         }
@@ -107,22 +118,14 @@ fun ShoppingCart() {
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.Start
             ) {
-                Text(text = "Ingrese el cupón: ")
+                Text(text = stringResource(id = R.string.couponMessage))
                 Spacer(modifier = Modifier.width(20.dp))
                 TextField(
-                    value = "123",
+                    value = stringResource(id = R.string.couponNumber),
                     singleLine = true,
                     onValueChange = {},
                     modifier = Modifier.width(190.dp)
                 )
-            }
-            Spacer(modifier = Modifier.height(15.dp))
-            Button(onClick = { /*TODO*/ }) {
-                Text(text = "Confirmar ediciones")
-            }
-            Spacer(modifier = Modifier.height(10.dp))
-            Button(onClick = { /*TODO*/ }) {
-                Text(text = "Generar pago")
             }
         }
     }

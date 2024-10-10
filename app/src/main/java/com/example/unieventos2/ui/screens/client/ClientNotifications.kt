@@ -15,6 +15,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -35,7 +36,7 @@ fun ClientNotifications(){
 
             Spacer(modifier = Modifier.width(70.dp))
             Text(
-                text = "Notificaciones",
+                text = stringResource(id = R.string.notifications),
                 color = androidx.compose.ui.graphics.Color.Black,
                 fontSize = 30.sp,
                 textAlign = TextAlign.Center,
@@ -45,15 +46,13 @@ fun ClientNotifications(){
             Spacer(modifier = Modifier.width(90.dp))
             Image(
                 painter = painterResource(id = R.drawable.notificacion),
-                contentDescription = "notificaciones",
+                contentDescription = stringResource(id = R.string.notifications),
                 modifier = Modifier.size(150.dp)
 
             )
 
             Spacer(modifier = Modifier.height(30.dp))
-            Text(text="¡Muy pendientes a nuestra app! Proximamente obra " +
-                        "de teatro del lago de los cisnes, solo 300 boletas " +
-                        "disponibles")
+            Text(text= stringResource(id = R.string.upcomingEvent))
         }
     }
 }

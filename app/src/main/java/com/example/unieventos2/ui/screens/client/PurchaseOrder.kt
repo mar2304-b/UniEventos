@@ -1,6 +1,8 @@
 package com.example.unieventos2.ui.screens.client
 
+import androidx.compose.foundation.interaction.DragInteraction
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -23,13 +25,22 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.unieventos2.R
+import com.example.unieventos2.viewModel.UsersViewModel
+import dev.chrisbanes.haze.HazeState
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun PurchaseOrder() {
+fun PurchaseOrder(
+    usersViewModel: UsersViewModel,
+    userId: Int,
+    paddingValues: PaddingValues,
+    hazeState: HazeState
+) {
     var transferenciaChecked by remember { mutableStateOf(false) }
     var puntosFalabellaChecked by remember { mutableStateOf(false) }
     val scrollState = rememberScrollState()
@@ -42,7 +53,7 @@ fun PurchaseOrder() {
         ) {
             Spacer(modifier = Modifier.height(20.dp))
             Text(
-                text = "Orden de compra",
+                text = stringResource(id = R.string.purchaseOrder),
                 color = Color.Black,
                 fontSize = 30.sp,
                 textAlign = TextAlign.Center,
@@ -51,10 +62,10 @@ fun PurchaseOrder() {
 
             Spacer(modifier = Modifier.height(50.dp))
             Row {
-                Text(text = "Código de la orden:")
+                Text(text = stringResource(id = R.string.orderCode))
                 Spacer(modifier = Modifier.width(20.dp))
                 TextField(
-                    value = "333",
+                    value = stringResource(id = R.string.orderNumber1),
                     singleLine = true,
                     onValueChange = {},
                     modifier = Modifier.width(190.dp)
@@ -63,10 +74,10 @@ fun PurchaseOrder() {
 
             Spacer(modifier = Modifier.height(10.dp))
             Row {
-                Text(text = "Código del cliente: ")
+                Text(text = stringResource(id = R.string.clientCode))
                 Spacer(modifier = Modifier.width(20.dp))
                 TextField(
-                    value = "111",
+                    value = stringResource(id = R.string.orderNumber3),
                     singleLine = true,
                     onValueChange = {}
                 )
@@ -74,10 +85,10 @@ fun PurchaseOrder() {
 
             Spacer(modifier = Modifier.height(50.dp))
             Row {
-                Text(text = "Código evento: ")
+                Text(text = stringResource(id = R.string.eventCode))
                 Spacer(modifier = Modifier.width(20.dp))
                 TextField(
-                    value = "444",
+                    value = stringResource(id = R.string.eventNumber),
                     singleLine = true,
                     onValueChange = {},
                     modifier = Modifier.width(190.dp)
@@ -86,10 +97,10 @@ fun PurchaseOrder() {
 
             Spacer(modifier = Modifier.height(10.dp))
             Row {
-                Text(text = "Localidad: ")
+                Text(text = stringResource(id = R.string.locality))
                 Spacer(modifier = Modifier.width(20.dp))
                 TextField(
-                    value = "1",
+                    value = stringResource(id = R.string.numberLocality),
                     singleLine = true,
                     onValueChange = {}
                 )
@@ -97,10 +108,10 @@ fun PurchaseOrder() {
 
             Spacer(modifier = Modifier.height(50.dp))
             Row {
-                Text(text = "Unidades: ")
+                Text(text = stringResource(id = R.string.units))
                 Spacer(modifier = Modifier.width(20.dp))
                 TextField(
-                    value = "1",
+                    value = stringResource(id = R.string.numberLocality),
                     singleLine = true,
                     onValueChange = {},
                     modifier = Modifier.width(190.dp)
@@ -109,10 +120,10 @@ fun PurchaseOrder() {
 
             Spacer(modifier = Modifier.height(10.dp))
             Row {
-                Text(text = "Precio individual: ")
+                Text(text = stringResource(id = R.string.individualPrice))
                 Spacer(modifier = Modifier.width(20.dp))
                 TextField(
-                    value = "1200000000",
+                    value = stringResource(id = R.string.priceDescription),
                     singleLine = true,
                     onValueChange = {}
                 )
@@ -120,10 +131,10 @@ fun PurchaseOrder() {
 
             Spacer(modifier = Modifier.height(10.dp))
             Row {
-                Text(text = "Cupón: ")
+                Text(text = stringResource(id = R.string.coupon))
                 Spacer(modifier = Modifier.width(20.dp))
                 TextField(
-                    value = "123",
+                    value = stringResource(id = R.string.couponNumber),
                     singleLine = true,
                     onValueChange = {}
                 )
@@ -131,10 +142,10 @@ fun PurchaseOrder() {
 
             Spacer(modifier = Modifier.height(10.dp))
             Row {
-                Text(text = "Total: ")
+                Text(text = stringResource(id = R.string.total))
                 Spacer(modifier = Modifier.width(20.dp))
                 TextField(
-                    value = "120000",
+                    value = stringResource(id = R.string.priceDescription),
                     singleLine = true,
                     onValueChange = {}
                 )
@@ -142,10 +153,10 @@ fun PurchaseOrder() {
 
             Spacer(modifier = Modifier.height(10.dp))
             Row {
-                Text(text = "Fecha: ")
+                Text(text = stringResource(id = R.string.date))
                 Spacer(modifier = Modifier.width(20.dp))
                 TextField(
-                    value = "20/12/2024",
+                    value = stringResource(id = R.string.dateDescription),
                     singleLine = true,
                     onValueChange = {}
                 )
@@ -154,31 +165,20 @@ fun PurchaseOrder() {
             Spacer(modifier = Modifier.height(20.dp))
             Column {
                 Spacer(modifier = Modifier.height(10.dp))
-                Text(text = "Medio de pago: ")
+                Text(text = stringResource(id = R.string.meansOfPayment))
 
                 Row {
                     Checkbox(
                         checked = transferenciaChecked,
                         onCheckedChange = { transferenciaChecked = it }
                     )
-                    Text(text = "Transferencia")
+                    Text(text = stringResource(id = R.string.meansOfPayment1))
                     Spacer(modifier = Modifier.width(20.dp))
                     Checkbox(
                         checked = puntosFalabellaChecked,
                         onCheckedChange = { puntosFalabellaChecked = it }
                     )
-                    Text(text = "Puntos Falabella")
-                }
-
-                Spacer(modifier = Modifier.height(10.dp))
-                Button(onClick = { /*TODO*/ },
-                    modifier = Modifier.align(Alignment.CenterHorizontally)) {
-                    Text(text = "Generar pago")
-                }
-                Spacer(modifier = Modifier.height(10.dp))
-                Button(onClick = { /*TODO*/ },
-                    modifier = Modifier.align(Alignment.CenterHorizontally)) {
-                    Text(text = "Editar")
+                    Text(text = stringResource(id = R.string.meansOfPayment2))
                 }
             }
         }

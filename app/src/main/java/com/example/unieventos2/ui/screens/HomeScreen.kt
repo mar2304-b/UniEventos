@@ -35,24 +35,24 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.unieventos2.R
+import com.example.unieventos2.models.Role
 import com.example.unieventos2.ui.components.TextFieldForm
+import com.example.unieventos2.utils.SharedPreferencesUtils
+import com.example.unieventos2.viewModel.UsersViewModel
 
 @Composable
 fun HomeScreen(
-    onNavigateToLogin: ()-> Unit,
-    onNavigateToRegister: ()-> Unit,
-    onNavigateToForgotMyPassword: ()-> Unit
-
+    usersViewModel: UsersViewModel,
+    onNavigateToHome: (Role) -> Unit,
+//    onNavigateToLogin: ()-> Unit,
+//    onNavigateToClientLogin: ()-> Unit,
+    onNavigateToRegister: () -> Unit,
+    onNavigateToForgotMyPassword: () -> Unit
 ) {
     var email by rememberSaveable { mutableStateOf("") }
-
-
     var password by rememberSaveable { mutableStateOf("") }
-
-
     var code by rememberSaveable { mutableStateOf("") }
     val context = LocalContext.current
-
     val scrollState = rememberScrollState()
 
 
@@ -60,9 +60,11 @@ fun HomeScreen(
 
         Column() {
 
-            Spacer(modifier = Modifier
-                .height(30.dp)
-                .verticalScroll(scrollState))
+            Spacer(
+                modifier = Modifier
+                    .height(30.dp)
+                    .verticalScroll(scrollState)
+            )
             Text(
                 text = stringResource(id = R.string.welcome),
                 color = androidx.compose.ui.graphics.Color.Black,
@@ -117,9 +119,9 @@ fun HomeScreen(
                 onValidate = {
                     !Patterns.EMAIL_ADDRESS.matcher(it).matches()
                 },
-                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email) ,
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
 
-            )
+                )
 
             Spacer(modifier = Modifier.height(10.dp))
             TextFieldForm(
@@ -132,9 +134,9 @@ fun HomeScreen(
                 onValidate = {
                     password.length < 7
                 },
-                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password) ,
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
                 isPassword = true
-                )
+            )
 
             Spacer(modifier = Modifier.height(10.dp))
             Text(text = stringResource(id = R.string.code))
@@ -147,16 +149,16 @@ fun HomeScreen(
             )
             val emailText = stringResource(id = R.string.emailText)
             val emailToast = stringResource(id = R.string.emailToast)
-            
+
             Button(
-                
+
                 enabled = email.isNotEmpty() && password.isNotEmpty(),
                 onClick = {
+                    val user = usersViewModel.login(email, password)
 
-                    if (email == "mariana@gmail.com" && password == "mariana123"){ //
-                        onNavigateToLogin()
-                    }else if (email == "manuela@gmail.com" && password == "manuela123"){
-
+                    if (user != null) {
+                        SharedPreferencesUtils.savePreferences(context, user.id, user.role)
+                        onNavigateToHome(user.role)
                     } else {
                         Toast.makeText(
                             context,
@@ -164,6 +166,20 @@ fun HomeScreen(
                             Toast.LENGTH_SHORT
                         ).show()
                     }
+
+//                    if (email == "mariana@gmail.com" && password == "mariana123") { // Ruta de navegación para Admin
+//                        onNavigateToLogin()
+//
+//                    } else if (email == "manuela@gmail.com" && password == "manuela123") { //Ruta de navegación para cliente
+//                        onNavigateToClientLogin()
+//
+//                    } else {
+//                        Toast.makeText(
+//                            context,
+//                            emailToast,
+//                            Toast.LENGTH_SHORT
+//                        ).show()
+//                    }
                 }
             ) {
                 Text(text = stringResource(id = R.string.loginButton))
@@ -171,7 +187,9 @@ fun HomeScreen(
 
 
             Button(onClick = {
-                onNavigateToRegister()}
+                onNavigateToRegister()
+
+            }
             ) {
                 Text(text = stringResource(id = R.string.registerButton))
 
@@ -179,7 +197,8 @@ fun HomeScreen(
 
 
             Button(onClick = {
-                onNavigateToForgotMyPassword()}
+                onNavigateToForgotMyPassword()
+            }
             ) {
                 Text(text = stringResource(id = R.string.forgetMyPasswordButton))
 
