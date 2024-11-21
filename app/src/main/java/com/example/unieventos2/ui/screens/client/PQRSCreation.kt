@@ -76,7 +76,7 @@ fun PQRSCreation(
                 Spacer(modifier = Modifier.height(20.dp))
                 Button(
                     onClick = {
-                        val pqrs = PQRS(0, description)
+                        val pqrs = PQRS(description = description)
                         PQRSViewModel.createPQRS(pqrs)
                         description = ""
                         Toast.makeText(context, "PQRS creada", Toast.LENGTH_SHORT).show()

@@ -1,6 +1,6 @@
 package com.example.unieventos2.models
 
 data class PQRS(
-    val id: Int,
-    val description: String
+    var id: String = "",
+    val description: String = ""
 )

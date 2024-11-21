@@ -1,8 +1,8 @@
 package com.example.unieventos2.models
 
 data class Coupon(
-    val id: Int,
-    val name: String,
-    val percentage: Int,
-    val code: String
+    var id: String = "",
+    val name: String = "",
+    val percentage: Int = 0,
+    val code: String = ""
 )

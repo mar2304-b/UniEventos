@@ -42,11 +42,11 @@ fun AdminHome(
     notificationsViewModel: NotificationsViewModel,
     usersViewModel: UsersViewModel,
     onNavigateToCreateEvent: () -> Unit,
-    onNavigateToEventDetail: (Int) -> Unit,
+    onNavigateToEventDetail: (String) -> Unit,
     onNavigateToCreateCoupon: () -> Unit,
-    onNavigateToCouponDetail: (Int) -> Unit,
+    onNavigateToCouponDetail: (String) -> Unit,
     onLogout: () -> Unit,
-    userId: Int
+    userId: String
 ) {
     val hazeState = remember { HazeState() }
     val navController = rememberNavController()

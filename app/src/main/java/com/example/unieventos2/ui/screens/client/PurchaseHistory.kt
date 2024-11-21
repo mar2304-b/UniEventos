@@ -8,6 +8,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -27,13 +29,16 @@ import dev.chrisbanes.haze.HazeState
 @Composable
 fun PurchaseHistory(
     usersViewModel: UsersViewModel,
-    userId: Int,
+    userId: String,
     paddingValues: PaddingValues,
     hazeState: HazeState
 ) {
+    val scrollState = rememberScrollState()
     Scaffold { paddingValues ->
         Column(
-            modifier = Modifier.padding(paddingValues)
+            modifier = Modifier
+                .padding(paddingValues)
+                .verticalScroll(scrollState)
         ) {
             Spacer(modifier = Modifier.height(20.dp))
             Text(

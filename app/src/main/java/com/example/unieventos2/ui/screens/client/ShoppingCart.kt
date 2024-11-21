@@ -24,13 +24,12 @@ import dev.chrisbanes.haze.HazeState
 fun ShoppingCart(
     //onNavigateToConfirmEditions: ()-> Unit,
     //onNavigateToGoToPurchaseOrder: ()-> Unit,
-    userId: Int,
+    userId: String,
     usersViewModel: UsersViewModel,
     paddingValues: PaddingValues,
     hazeState: HazeState
 ) {
     val scrollState = rememberScrollState()
-
     Column(
         modifier = Modifier
             .fillMaxSize()

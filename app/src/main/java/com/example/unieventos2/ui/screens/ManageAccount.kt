@@ -13,8 +13,10 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -35,12 +37,14 @@ fun ManageAccount(
     usersViewModel: UsersViewModel,
     paddingValues: PaddingValues,
     hazeState: HazeState,
-    userId: Int
+    userId: String
 ) {
     val scrollState = rememberScrollState()
-    val user = usersViewModel.getUserById(userId)
-    if (user == null) {
-        return
+    var user by remember {
+        mutableStateOf(User())
+    }
+    LaunchedEffect(userId) {
+        user = usersViewModel.getUserById(userId)!!
     }
 
     var email by rememberSaveable { mutableStateOf(user.email) }
@@ -50,6 +54,15 @@ fun ManageAccount(
     var password by rememberSaveable { mutableStateOf(user.password) }
 
     val context = LocalContext.current
+
+    LaunchedEffect(user) {
+        email = user.email
+        name = user.name
+        address = user.address
+        telephone = user.telephone
+        password = user.password
+
+    }
 
     Scaffold { paddingValues ->
 

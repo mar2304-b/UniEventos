@@ -33,7 +33,7 @@ import dev.chrisbanes.haze.haze
 
 @Composable
 fun AdminUpcomingEvents(
-    onNavigateToEventDetail: (Int) -> Unit,
+    onNavigateToEventDetail: (String) -> Unit,
     eventsViewModel: EventsViewModel,
     hazeState: HazeState,
     paddingValues: PaddingValues

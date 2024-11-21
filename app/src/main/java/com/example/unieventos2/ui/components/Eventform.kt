@@ -22,32 +22,33 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.example.unieventos2.R
+import com.example.unieventos2.models.Locality
 import com.example.unieventos2.viewModel.EventsViewModel
 import kotlinx.serialization.descriptors.PrimitiveKind
 
 @Composable
 
 fun EventForm(
-    name:String,
-    onNameChange: (String) ->Unit,
-    type:String,
-    onTypeChange: (String) ->Unit,
+    name: String,
+    onNameChange: (String) -> Unit,
+    type: String,
+    onTypeChange: (String) -> Unit,
     expandedType: Boolean,
-    expandedTypeChange: (Boolean) ->Unit,
-    description:String,
-    onDescriptionChange: (String) ->Unit,
-    city:String,
-    onCityChange: (String) ->Unit,
+    expandedTypeChange: (Boolean) -> Unit,
+    description: String,
+    onDescriptionChange: (String) -> Unit,
+    city: String,
+    onCityChange: (String) -> Unit,
     expandedCity: Boolean,
-    expandedCityChange: (Boolean) ->Unit,
-    date:String,
+    expandedCityChange: (Boolean) -> Unit,
+    date: String,
     onDateChange: (String) -> Unit,
-    datePicked:Boolean,
+    datePicked: Boolean,
     onDatePickedChange: (Boolean) -> Unit,
-    address:String,
-    onAddressChange: (String) ->Unit,
-
-
+    address: String,
+    onAddressChange: (String) -> Unit,
+    localities: MutableList<Locality>,
+    onLocalitiesChange: (MutableList<Locality>) -> Unit
 ) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -66,7 +67,7 @@ fun EventForm(
             value = city,
             onValueSelected = onCityChange,
             expanded = expandedCity,
-            expandedChange = {expandedCityChange(it)},
+            expandedChange = { expandedCityChange(it) },
             modifier = Modifier.fillMaxWidth(),
             values = listOf("Armenia", "Pereira", "Bogota", "Medellin"),
             label = stringResource(id = R.string.city)
@@ -76,32 +77,47 @@ fun EventForm(
             value = type,
             onValueSelected = onTypeChange,
             expanded = expandedType,
-            expandedChange = {expandedTypeChange(it)},
+            expandedChange = { expandedTypeChange(it) },
             modifier = Modifier.fillMaxWidth(),
             values = listOf("Concierto", "Festival", "Futbol", "Obra de teatro"),
-            label =  stringResource(id = R.string.eventOption)
+            label = stringResource(id = R.string.eventOption)
         )
         Spacer(modifier = Modifier.height(10.dp))
-        DateForm(date = date,
+        DateForm(
+            date = date,
             onDateChange = onDateChange,
             isDatePicked = datePicked,
-            onDatePickedChange = onDatePickedChange)
+            onDatePickedChange = onDatePickedChange
+        )
 
 
         Spacer(modifier = Modifier.height(10.dp))
         OutlinedTextField(value = address,
             onValueChange = onAddressChange,
-            label = { Text(text = stringResource(id = R.string.address))})
+            label = { Text(text = stringResource(id = R.string.address)) })
 
 
         Spacer(modifier = Modifier.height(10.dp))
         OutlinedTextField(value = description,
             onValueChange = onDescriptionChange,
-            label = { Text(text = stringResource(id = R.string.descriptionForm))})
+            label = { Text(text = stringResource(id = R.string.descriptionForm)) })
 
         Spacer(modifier = Modifier.height(10.dp))
-        LocalityCard()
+        LocalityCard(
+            localities = localities,
+            onLocalitiesChange = onLocalitiesChange
+        )
 
+        Spacer(modifier = Modifier.height(10.dp))
 
+        localities.forEach { locality ->
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(bottom = 10.dp)
+            ) {
+                Text(text = "Localidad: ${locality.name}, Capacidad: ${locality.capacity}, Precio: ${locality.price}")
+            }
+        }
     }
 }

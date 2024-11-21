@@ -1,7 +1,7 @@
 package com.example.unieventos2.models
 
 data class Notification(
-    val id: Int,
-    val name: String,
-    val description: String
+    var id: String = "",
+    val name: String = "",
+    val description: String = ""
 )

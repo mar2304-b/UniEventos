@@ -22,10 +22,6 @@ fun BottomBarHomeClient(
         NavItem.Coupons,
         NavItem.PQRS,
         NavItem.Notifications,
-        NavItem.ManageAccount,
-        NavItem.ShoppingCart,
-        NavItem.PurchaseOrder,
-        NavItem.PurchaseHistory
     )
 
     val navBackStackEntry by navHostController.currentBackStackEntryAsState()

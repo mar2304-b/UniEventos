@@ -2,6 +2,8 @@ package com.example.unieventos2.ui.navigation
 
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -16,6 +18,7 @@ import com.example.unieventos2.ui.screens.admin.AdminPQRS
 import com.example.unieventos2.ui.screens.admin.CouponDetail
 import com.example.unieventos2.ui.screens.admin.EventCreation
 import com.example.unieventos2.ui.screens.admin.AdminEventDetail
+import com.example.unieventos2.ui.screens.admin.CouponCreation
 import com.example.unieventos2.ui.screens.client.ClientEventDetail
 import com.example.unieventos2.ui.screens.client.ClientHome
 import com.example.unieventos2.ui.screens.client.Registration
@@ -37,6 +40,7 @@ fun Navigation(
 ) {
 
     val context = LocalContext.current
+    val currentUser by usersViewModel.currentUser.collectAsState()
     val navController = rememberNavController()
 
     var startDestination: RouteScreen = RouteScreen.HomeScreen
@@ -56,17 +60,22 @@ fun Navigation(
         composable<RouteScreen.HomeScreen> {
             HomeScreen(
                 usersViewModel = usersViewModel,
-                onNavigateToHome = { role ->
-                    val home = if (role == Role.ADMIN) {
-                        RouteScreen.AdminHome
-                    } else {
-                        RouteScreen.ClientHome
-                    }
-                    navController.navigate(home) {
-                        popUpTo(0) {
-                            inclusive = true
+                onNavigateToHome = {
+                    val user = currentUser
+                    if (user != null){
+                        val role = user.role
+                        SharedPreferencesUtils.savePreferences(context, user.id, role)
+                        val home = if (role == Role.ADMIN) {
+                            RouteScreen.AdminHome
+                        } else {
+                            RouteScreen.ClientHome
                         }
-                        launchSingleTop = true
+                        navController.navigate(home) {
+                            popUpTo(0) {
+                                inclusive = true
+                            }
+                            launchSingleTop = true
+                        }
                     }
                 },
                 onNavigateToForgotMyPassword = {
@@ -78,10 +87,8 @@ fun Navigation(
             )
         }
 
-
-
         composable<RouteScreen.Registration> {
-            Registration(usersViewModel = usersViewModel)
+            Registration(usersViewModel = usersViewModel, onNavigateToHome ={navController.navigate(RouteScreen.ClientHome)})
         }
 
         composable<RouteScreen.AdminHome> {
@@ -99,7 +106,7 @@ fun Navigation(
                 onNavigateToCouponDetail = { couponId ->
                     navController.navigate(RouteScreen.CouponDetail(couponId))
                 },
-                userId = session?.id ?: 0,
+                userId = session?.id ?: "",
                 onLogout = {
                     SharedPreferencesUtils.clearPreferences(context)
                     navController.navigate(RouteScreen.HomeScreen) {
@@ -145,6 +152,12 @@ fun Navigation(
             )
         }
 
+        composable<RouteScreen.CouponCreation> {
+            CouponCreation (
+                couponsViewModel = couponsViewModel
+            )
+        }
+
         composable<RouteScreen.CouponDetail> {
             val couponId = it.toRoute<RouteScreen.CouponDetail>()
             CouponDetail(
@@ -163,7 +176,7 @@ fun Navigation(
                 PQRSViewModel = pqrsViewModel,
                 notificationsViewModel = notificationsViewModel,
                 usersViewModel = usersViewModel,
-                userId = session?.id ?: 0,
+                userId = session?.id ?: "",
 
                 onLogout = {
                     SharedPreferencesUtils.clearPreferences(context)
@@ -173,7 +186,7 @@ fun Navigation(
                         }
                         launchSingleTop = true
                     }
-                }
+                },
             )
         }
 
@@ -185,6 +198,7 @@ fun Navigation(
                 eventId = eventId.eventId
             )
         }
+        
 
 //        composable<RouteScreen.No> {
 //            NotificationDetail(

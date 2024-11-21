@@ -76,7 +76,7 @@ fun NotificationCreation(
             ) {
                 Button(
                     onClick = {
-                        val notification = Notification(0, name, description)
+                        val notification = Notification( name = name, description = description)
                         notificationsViewModel.createNotification(notification)
 
                         Toast.makeText(context, "Notificación publicada exitosamente", Toast.LENGTH_LONG).show()

@@ -10,10 +10,13 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
+import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -30,13 +33,16 @@ import com.example.unieventos2.R
 import com.example.unieventos2.models.Role
 import com.example.unieventos2.models.User
 import com.example.unieventos2.ui.components.PersonalInformation
+import com.example.unieventos2.utils.RequestResult
 import com.example.unieventos2.viewModel.UsersViewModel
 
 
 @Composable
 fun Registration(
-    usersViewModel: UsersViewModel
+    usersViewModel: UsersViewModel,
+    onNavigateToHome: () -> Unit
 ) {
+    val authResult by usersViewModel.authResult.collectAsState()
     val scrollState = rememberScrollState()
     var email by rememberSaveable { mutableStateOf("") }
     var name by rememberSaveable { mutableStateOf("") }
@@ -76,7 +82,6 @@ fun Registration(
             Button(
                 onClick = {
                     val user = User(
-                        id = 0,
                         name = name,
                         email = email,
                         telephone = telephone,
@@ -90,6 +95,24 @@ fun Registration(
                 modifier = Modifier.align(Alignment.CenterHorizontally)
             ) {
                 Text(text = stringResource(id = R.string.register))
+            }
+            when(authResult){
+                is RequestResult.Loading -> {
+                    LinearProgressIndicator()
+                }
+                is RequestResult.Succes -> {
+                    Text(text = (authResult as RequestResult.Succes).message)
+                    LaunchedEffect(Unit) {
+                        kotlinx.coroutines.delay(2000)
+                        onNavigateToHome()
+                        usersViewModel.resetAuthResult()
+
+                    }
+                }
+                is RequestResult.Error -> {
+                    Text(text = (authResult as RequestResult.Error).messageError ?: "")
+                }
+                null -> {}
             }
 
         }

@@ -16,10 +16,13 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
+import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -36,19 +39,22 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.unieventos2.R
 import com.example.unieventos2.models.Role
+import com.example.unieventos2.ui.components.AlertMessage
+import com.example.unieventos2.ui.components.AlertType
 import com.example.unieventos2.ui.components.TextFieldForm
+import com.example.unieventos2.utils.RequestResult
 import com.example.unieventos2.utils.SharedPreferencesUtils
 import com.example.unieventos2.viewModel.UsersViewModel
+import kotlinx.coroutines.delay
 
 @Composable
 fun HomeScreen(
     usersViewModel: UsersViewModel,
-    onNavigateToHome: (Role) -> Unit,
-//    onNavigateToLogin: ()-> Unit,
-//    onNavigateToClientLogin: ()-> Unit,
+    onNavigateToHome: () -> Unit,
     onNavigateToRegister: () -> Unit,
     onNavigateToForgotMyPassword: () -> Unit
 ) {
+    val authResult by usersViewModel.authResult.collectAsState()
     var email by rememberSaveable { mutableStateOf("") }
     var password by rememberSaveable { mutableStateOf("") }
     var code by rememberSaveable { mutableStateOf("") }
@@ -154,33 +160,9 @@ fun HomeScreen(
 
                 enabled = email.isNotEmpty() && password.isNotEmpty(),
                 onClick = {
-                    val user = usersViewModel.login(email, password)
-
-                    if (user != null) {
-                        SharedPreferencesUtils.savePreferences(context, user.id, user.role)
-                        onNavigateToHome(user.role)
-                    } else {
-                        Toast.makeText(
-                            context,
-                            emailToast,
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    }
-
-//                    if (email == "mariana@gmail.com" && password == "mariana123") { // Ruta de navegación para Admin
-//                        onNavigateToLogin()
-//
-//                    } else if (email == "manuela@gmail.com" && password == "manuela123") { //Ruta de navegación para cliente
-//                        onNavigateToClientLogin()
-//
-//                    } else {
-//                        Toast.makeText(
-//                            context,
-//                            emailToast,
-//                            Toast.LENGTH_SHORT
-//                        ).show()
-//                    }
+                    usersViewModel.login(email, password)
                 }
+
             ) {
                 Text(text = stringResource(id = R.string.loginButton))
             }
@@ -202,6 +184,29 @@ fun HomeScreen(
             ) {
                 Text(text = stringResource(id = R.string.forgetMyPasswordButton))
 
+            }
+
+            when (authResult) {
+                is RequestResult.Loading -> {
+                    LinearProgressIndicator()
+                }
+
+                is RequestResult.Succes -> {
+                    AlertMessage(type = AlertType.SUCCESS, message = (authResult as RequestResult.Succes).message)
+                    LaunchedEffect(Unit) {
+                        delay(2000)
+                        onNavigateToHome()
+                        usersViewModel.resetAuthResult()
+                    }
+                }
+                is RequestResult.Error -> {
+                    AlertMessage(type = AlertType.ERROR, message = (authResult as RequestResult.Error).messageError)
+                    LaunchedEffect(Unit) {
+                        delay(2000)
+                        usersViewModel.resetAuthResult()
+                    }
+                }
+                null -> {}
             }
         }
 

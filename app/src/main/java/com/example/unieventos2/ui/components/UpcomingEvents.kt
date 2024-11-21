@@ -28,7 +28,7 @@ import com.example.unieventos2.models.Event
 
 @Composable
 fun UpcomingEvents(
-    onNavigateToEventDetail: (Int) -> Unit,
+    onNavigateToEventDetail: (String) -> Unit,
     getEventList: () -> List<Event>
 ) {
     Column(

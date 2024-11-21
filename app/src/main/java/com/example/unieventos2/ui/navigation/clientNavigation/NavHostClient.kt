@@ -7,12 +7,10 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.example.unieventos2.ui.navigation.adminNavigation.ItemTabAdmin
 import com.example.unieventos2.ui.screens.ManageAccount
 import com.example.unieventos2.ui.screens.admin.AdminUpcomingEvents
 import com.example.unieventos2.ui.screens.admin.CouponsScreen
 import com.example.unieventos2.ui.screens.admin.NotificationsScreen
-import com.example.unieventos2.ui.screens.admin.PQRSScreen
 import com.example.unieventos2.ui.screens.client.PQRSCreation
 import com.example.unieventos2.ui.screens.client.PurchaseHistory
 import com.example.unieventos2.ui.screens.client.PurchaseOrder
@@ -22,8 +20,6 @@ import com.example.unieventos2.viewModel.EventsViewModel
 import com.example.unieventos2.viewModel.NotificationsViewModel
 import com.example.unieventos2.viewModel.PQRSViewModel
 import com.example.unieventos2.viewModel.UsersViewModel
-import com.example.unieventos2.viewModel.purchaseOrderViewModel
-import com.example.unieventos2.viewModel.shoppingCartViewModel
 import dev.chrisbanes.haze.HazeState
 
 
@@ -36,9 +32,9 @@ fun NavHostClient(
     PQRSViewModel: PQRSViewModel,
     notificationsViewModel: NotificationsViewModel,
     usersViewModel: UsersViewModel,
-    onNavigateToEventDetail: (Int) -> Unit,
+    onNavigateToEventDetail: (String) -> Unit,
     hazeState: HazeState,
-    userId: Int
+    userId: String
 ) {
     NavHost(
         modifier = Modifier.fillMaxSize(),

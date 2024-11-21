@@ -37,7 +37,7 @@ import dev.chrisbanes.haze.HazeState
 @Composable
 fun PurchaseOrder(
     usersViewModel: UsersViewModel,
-    userId: Int,
+    userId: String,
     paddingValues: PaddingValues,
     hazeState: HazeState
 ) {

@@ -16,8 +16,10 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -34,12 +36,13 @@ import com.example.unieventos2.viewModel.EventsViewModel
 @Composable
 fun AdminEventDetail(
     eventsViewModel: EventsViewModel,
-    eventId: Int
+    eventId: String
 ) {
-    val event = eventsViewModel.getEventById(eventId)
-
-    if (event == null) {
-        return
+    var event by remember {
+        mutableStateOf(Event())
+    }
+    LaunchedEffect(eventId) {
+        event = eventsViewModel.getEventById(eventId)!!
     }
 
     var name by rememberSaveable { mutableStateOf(event.name) }
@@ -47,13 +50,24 @@ fun AdminEventDetail(
     var expandedCity by rememberSaveable { mutableStateOf(false) }
     var address by rememberSaveable { mutableStateOf(event.address) }
     var description by rememberSaveable { mutableStateOf(event.description) }
-    var type by rememberSaveable { mutableStateOf(event.description) }
+    var type by rememberSaveable { mutableStateOf(event.type) }
     var expandedType by rememberSaveable { mutableStateOf(false) }
     var date by rememberSaveable { mutableStateOf(event.date) }
     var datePicked by rememberSaveable { mutableStateOf(false) }
+    var localities by rememberSaveable { mutableStateOf(event.localities.toMutableList()) }
 
     val context = LocalContext.current
     val scrollState = rememberScrollState()
+
+    LaunchedEffect(event) {
+        event.let {
+            name = it.name
+            city = it.city
+            address = it.address
+            description = it.description
+            type = it.type
+        }
+    }
 
     Column(
         modifier = Modifier
@@ -79,7 +93,9 @@ fun AdminEventDetail(
             datePicked = datePicked,
             onDatePickedChange = { datePicked = it },
             address = address,
-            onAddressChange = { address = it }
+            onAddressChange = { address = it },
+            localities = localities,
+            onLocalitiesChange = { localities = it }
         )
         Box(modifier = Modifier.fillMaxWidth()) {
             Image(
@@ -100,7 +116,8 @@ fun AdminEventDetail(
                         city,
                         address,
                         description,
-                        date
+                        date,
+                        localities
                     )
                     eventsViewModel.editEvent(editEvent)
                     Toast.makeText(context, "Evento editado exitosamente", Toast.LENGTH_LONG).show()

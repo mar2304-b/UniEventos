@@ -19,7 +19,7 @@ sealed class RouteScreen {
     data object CouponCreation : RouteScreen()
 
     @Serializable
-    data class CouponDetail(val couponId: Int) : RouteScreen()
+    data class CouponDetail(val couponId: String) : RouteScreen()
 
     @Serializable
     data object ManageAccount : RouteScreen()
@@ -34,13 +34,13 @@ sealed class RouteScreen {
     data object AdminUpcomingEvents : RouteScreen()
 
     @Serializable
-    data class AdminEventDetail(val eventId: Int) : RouteScreen()
+    data class AdminEventDetail(val eventId: String) : RouteScreen()
 
     @Serializable
     data object ClientHome : RouteScreen()
 
     @Serializable
-    data class ClientEventDetail(val eventId: Int) : RouteScreen()
+    data class ClientEventDetail(val eventId: String) : RouteScreen()
 
     @Serializable
     data object ClientOptions : RouteScreen()

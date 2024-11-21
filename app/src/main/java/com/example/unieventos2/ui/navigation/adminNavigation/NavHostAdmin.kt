@@ -29,10 +29,10 @@ fun NavHostAdmin(
     PQRSViewModel: PQRSViewModel,
     notificationsViewModel: NotificationsViewModel,
     usersViewModel: UsersViewModel,
-    onNavigateToEventDetail: (Int) -> Unit,
-    onNavigateToCouponDetail: (Int) -> Unit,
+    onNavigateToEventDetail: (String) -> Unit,
+    onNavigateToCouponDetail: (String) -> Unit,
     hazeState: HazeState,
-    userId: Int
+    userId: String
 ) {
     NavHost(
         modifier = Modifier.fillMaxSize(),

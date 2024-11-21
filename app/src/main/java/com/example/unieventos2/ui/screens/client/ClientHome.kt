@@ -12,16 +12,20 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
+import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import com.example.unieventos2.ui.components.DropdownMenuOptions
 import com.example.unieventos2.ui.navigation.adminNavigation.BottomBarHomeAdmin
 import com.example.unieventos2.ui.navigation.adminNavigation.NavHostAdmin
 import com.example.unieventos2.ui.navigation.clientNavigation.BottomBarHomeClient
@@ -39,31 +43,26 @@ import dev.chrisbanes.haze.hazeChild
 fun ClientHome(
     eventsViewModel: EventsViewModel,
     couponsViewModel: CouponsViewModel,
-    onNavigateToEventDetail: (Int) -> Unit,
+    onNavigateToEventDetail: (String) -> Unit,
     PQRSViewModel: PQRSViewModel,
     notificationsViewModel: NotificationsViewModel,
     usersViewModel: UsersViewModel,
     onLogout: () -> Unit,
-    userId: Int
+    userId: String
 ) {
 
     val hazeState = remember { HazeState() }
     val navController = rememberNavController()
     val snackbarHostState = remember { SnackbarHostState() }
     var selectedTab by remember { mutableIntStateOf(0) }
+    var selectedItem by remember { mutableStateOf("") }
+
 
     Scaffold(
         topBar = {
+
             CenterAlignedTopAppBar(
-                title = {
-                    when (selectedTab) {
-                        0 -> "Eventos"
-                        1 -> "Cupones"
-                        2 -> "PQRS"
-                        3 -> "Notificaciones"
-                        4 -> "Editar perfil"
-                    }
-                },
+                title = { },
                 colors = TopAppBarDefaults.largeTopAppBarColors(Color.Transparent),
                 modifier = Modifier
                     .hazeChild(hazeState),
@@ -76,6 +75,11 @@ fun ClientHome(
                             contentDescription = null
                         )
                     }
+                },
+                navigationIcon = {
+                    DropdownMenuOptions(
+                        navHostController = navController
+                    )
                 }
             )
         },

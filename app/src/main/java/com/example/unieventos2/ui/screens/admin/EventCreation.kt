@@ -30,6 +30,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.example.unieventos2.R
 import com.example.unieventos2.models.Event
+import com.example.unieventos2.models.Locality
 import com.example.unieventos2.ui.components.EventForm
 import com.example.unieventos2.ui.components.Localities
 import com.example.unieventos2.viewModel.EventsViewModel
@@ -56,6 +57,8 @@ fun EventCreation(
     var expandedType by rememberSaveable { mutableStateOf(false) }
     var date by rememberSaveable { mutableStateOf("") }
     var datePicked by rememberSaveable { mutableStateOf(false) }
+
+    var localities by rememberSaveable { mutableStateOf(mutableListOf<Locality>()) }
 
     Scaffold { padding ->
 
@@ -84,7 +87,9 @@ fun EventCreation(
                 datePicked = datePicked,
                 onDatePickedChange = { datePicked = it },
                 address = address,
-                onAddressChange = { address = it }
+                onAddressChange = { address = it },
+                localities = localities,
+                onLocalitiesChange = { localities = it }
             )
 
             Spacer(modifier = Modifier.height(20.dp))
@@ -94,7 +99,15 @@ fun EventCreation(
             ) {
                 Button(
                     onClick = {
-                        val event = Event(0, name, city, address, description, date)
+                        val event = Event(
+                            name = name,
+                            city = city,
+                            address = address,
+                            description = description,
+                            type = type,
+                            date = date,
+                            localities = localities
+                        )
                         eventsViewModel.createEvent(event)
 
 

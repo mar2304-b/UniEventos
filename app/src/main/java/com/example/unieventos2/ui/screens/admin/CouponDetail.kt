@@ -11,9 +11,11 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -31,18 +33,24 @@ import com.example.unieventos2.viewModel.NotificationsViewModel
 @Composable
 fun CouponDetail(
     couponsViewModel: CouponsViewModel,
-    couponId: Int
+    couponId: String
 ) {
-    val coupon = couponsViewModel.getCouponById(couponId)
 
-    if (coupon == null) {
-        return
+    var coupon by remember { mutableStateOf(Coupon()) }
+    LaunchedEffect(couponId) {
+        coupon = couponsViewModel.getCouponById(couponId)!!
     }
-
     var name by rememberSaveable { mutableStateOf(coupon.name) }
     var percentage by rememberSaveable { mutableIntStateOf(coupon.percentage) }
     var code by rememberSaveable { mutableStateOf(coupon.code) }
     val context = LocalContext.current
+    LaunchedEffect(coupon) {
+        coupon.let {
+            name = it.name
+            percentage = it.percentage
+            code = it.code
+        }
+    }
 
     Column(
         modifier = Modifier

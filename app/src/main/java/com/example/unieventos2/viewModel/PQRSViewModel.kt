@@ -1,45 +1,61 @@
 package com.example.unieventos2.viewModel
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.example.unieventos2.models.Coupon
+import com.example.unieventos2.models.Notification
 import com.example.unieventos2.models.PQRS
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.tasks.await
+
 
 class PQRSViewModel: ViewModel() {
+    val db = Firebase.firestore
+    private val auth = FirebaseAuth.getInstance()
     private val _pqrs = MutableStateFlow(emptyList<PQRS>())
     val pqrs: StateFlow<List<PQRS>> = _pqrs.asStateFlow()
 
     init {
-        _pqrs.value = getPQRSList()
+        loadPQRS()
     }
-
-    fun getPQRSById(id:Int): PQRS?{
-        return _pqrs.value.find {it.id==id}
-    }
-
-    fun createPQRS(pqrs: PQRS){
-        _pqrs.value += pqrs
-    }
-    fun editPQRS(pqrs: PQRS){
-        val index = _pqrs.value.indexOfFirst { it.id == pqrs.id }
-        if(index != -1){
-            _pqrs.value = _pqrs.value.toMutableList().apply {
-                set(index,pqrs)
-            }
+    private fun loadPQRS(){
+        viewModelScope.launch {
+            _pqrs.value = getPQRSList()
         }
     }
 
-    fun deletePQRS(pqrs: PQRS){
-        _pqrs.value -= pqrs
+    fun getPQRS(): List<PQRS> {
+        return _pqrs.value
     }
 
-    private fun getPQRSList(): List<PQRS>{
-        return listOf(
-            PQRS(
-                1,
-                "Recomiendo la app, tienen buenos precios"
-            )
-        )
+    suspend fun getPQRSById(id: String): PQRS? {
+        val snapshot = db.collection("pqrs").document(id).get().await()
+        val pqrs = snapshot.toObject(PQRS::class.java)
+        pqrs?.id = snapshot.id
+        return pqrs
     }
+
+    fun createPQRS(pqrs: PQRS) {
+        viewModelScope.launch {
+            db.collection("pqrs").add(pqrs).await()
+            loadPQRS()
+        }
+    }
+
+    suspend fun getPQRSList(): List<PQRS> {
+        val snapshot = db.collection("pqrs").get().await()
+        return snapshot.documents.mapNotNull {
+            val pqrs = it.toObject(PQRS::class.java)
+            requireNotNull(pqrs)
+            pqrs.id = it.id
+            pqrs
+        }
+    }
+
 }

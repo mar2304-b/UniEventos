@@ -12,18 +12,50 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.unieventos2.models.Event
 import com.example.unieventos2.viewModel.EventsViewModel
 @Composable
 fun ClientEventDetail(
     eventsViewModel: EventsViewModel,
-    eventId: Int
+    eventId: String
 ) {
-    val event = eventsViewModel.getEventById(eventId)
-    requireNotNull(event)
+    var event by remember {
+        mutableStateOf(Event())
+    }
+    LaunchedEffect(eventId) {
+        event = eventsViewModel.getEventById(eventId)!!
+    }
+
+    var name by rememberSaveable { mutableStateOf(event.name) }
+    var city by rememberSaveable { mutableStateOf(event.city) }
+    var expandedCity by rememberSaveable { mutableStateOf(false) }
+    var address by rememberSaveable { mutableStateOf(event.address) }
+    var description by rememberSaveable { mutableStateOf(event.description) }
+    var type by rememberSaveable { mutableStateOf(event.type) }
+    var expandedType by rememberSaveable { mutableStateOf(false) }
+    var date by rememberSaveable { mutableStateOf(event.date) }
+    var datePicked by rememberSaveable { mutableStateOf(false) }
+    var localities by rememberSaveable { mutableStateOf(event.localities.toMutableList()) }
+
+    LaunchedEffect(event) {
+        event.let {
+            name = it.name
+            city = it.city
+            address = it.address
+            description = it.description
+            type = it.type
+        }
+    }
 
     Scaffold(
         floatingActionButton = {

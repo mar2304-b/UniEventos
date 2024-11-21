@@ -1,66 +1,67 @@
 package com.example.unieventos2.viewModel
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.example.unieventos2.models.Coupon
 import com.example.unieventos2.models.Event
+import com.example.unieventos2.models.Locality
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.tasks.await
 
-class EventsViewModel: ViewModel() {
+class EventsViewModel : ViewModel() {
+    val db = Firebase.firestore
     private val _events = MutableStateFlow(emptyList<Event>())
     val events: StateFlow<List<Event>> = _events.asStateFlow()
 
     init {
-        _events.value = getEventList()
+        loadEvents()
+    }
+    private fun loadEvents(){
+        viewModelScope.launch {
+            _events.value = getEventList()
+        }
     }
 
-    fun getEventById(id:Int): Event?{
-        return _events.value.find {it.id==id}
+    suspend fun getEventById(id: String): Event? {
+        val snapshot = db.collection("events").document(id).get().await()
+        val event = snapshot.toObject(Event::class.java)
+        event?.id = snapshot.id
+        return event
     }
 
-    fun createEvent(event: Event){
-        _events.value += event
+    fun createEvent(event: Event) {
+        viewModelScope.launch {
+            db.collection("events").add(event).await()
+            loadEvents()
+        }
     }
+
     fun editEvent(event: Event){
-        val index = _events.value.indexOfFirst { it.id == event.id }
-        if(index != -1){
-            _events.value = _events.value.toMutableList().apply {
-                set(index,event)
-            }
+        viewModelScope.launch {
+            db.collection("events").document(event.id).set(event).await()
+            loadEvents()
         }
     }
 
     fun deleteEvent(event: Event){
-        _events.value -= event
+        viewModelScope.launch {
+            db.collection("events").document(event.id).delete().await()
+            loadEvents()
+        }
     }
 
-    private fun getEventList(): List<Event>{
-        return listOf(
-            Event(
-                 1,
-                "Guns N' Roses",
-                "Armenia",
-                "20/12/2024",
-                "Concierto de rock",
-                "20/12/2024"
-            ),
-            Event(
-                2,
-                " XV Festival colombiano",
-                "Armenia",
-                "20/12/2024",
-                "Festival cultural",
-                "20/12/2024"
-            ),
-            Event(
-                3,
-                "Festival electronico",
-                "Armenia",
-                "20/12/2024",
-                "Musica contemporanea",
-                "20/12/2024"
-            ),
-
-        )
+    suspend fun getEventList(): List<Event> {
+        val snapshot = db.collection("events").get().await()
+        return snapshot.documents.mapNotNull {
+            val event = it.toObject(Event::class.java)
+            requireNotNull(event)
+            event.id = it.id
+            event
+        }
     }
 }
